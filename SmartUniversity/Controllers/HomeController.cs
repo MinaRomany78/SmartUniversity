@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SmartUniversity.Models;
+using Entities.Models;
 
 namespace SmartUniversity.Controllers
 {
