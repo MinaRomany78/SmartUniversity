@@ -14,5 +14,6 @@ namespace Entities.Models
         public ICollection<CourseAssignment> CourseAssignments { get; } = new List<CourseAssignment>();
         public ICollection<SubjectTask> Tasks { get; } = new List<SubjectTask>();
         public ICollection<Assistant> Assistants { get; } = new List<Assistant>();
+        public object Courses { get; set; }
     }
 }
