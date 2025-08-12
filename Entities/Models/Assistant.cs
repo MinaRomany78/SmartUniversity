@@ -16,6 +16,6 @@ namespace Entities.Models
         public ICollection<CourseAssistant> CourseAssistants { get; } = new List<CourseAssistant>();
         public ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
         public ICollection<Comment> Comments { get; } = new List<Comment>();
-        public object Course { get; set; }
+
     }
 }

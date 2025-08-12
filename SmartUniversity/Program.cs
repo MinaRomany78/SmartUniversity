@@ -1,13 +1,11 @@
 ﻿// Program.cs
 using DataAccess.Data;
 using Entities.Models;
-using DataAccess.Repositories.Interfaces;
-using DataAccess.Repositories.Implementations;
+using DataAccess.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using SmartUniversity.Repositories.Implementations;
-using SmartUniversity.Repositories.Interfaces;
-using SmartUniversity.Repositories;
+
+using DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +21,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Open generic (optional, مفيد لو بستدعي IGenericRepository<T> مباشرة)
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
 // Register custom repositories (سجل كل إنترفيس مع implementation)
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
