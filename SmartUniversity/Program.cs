@@ -21,7 +21,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
 // Register custom repositories (سجل كل إنترفيس مع implementation)
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
