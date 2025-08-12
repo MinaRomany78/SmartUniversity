@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250810135528_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250813155456_ApplicationUserOtpAdded")]
+    partial class ApplicationUserOtpAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,6 +128,41 @@ namespace DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.ApplicationUserOtp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OtpNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("ApplicationUserOtps");
                 });
 
             modelBuilder.Entity("Entities.Models.Assistant", b =>
@@ -772,6 +807,17 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Entities.Models.ApplicationUserOtp", b =>
+                {
+                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
             modelBuilder.Entity("Entities.Models.Assistant", b =>
                 {
                     b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
@@ -783,7 +829,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("Assistants")
                         .HasForeignKey("DoctorID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -924,9 +970,9 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Models.SubjectTask", "Task")
-                        .WithMany()
+                        .WithMany("Feedbacks")
                         .HasForeignKey("TaskID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Assistant");
@@ -1157,6 +1203,11 @@ namespace DataAccess.Migrations
                     b.Navigation("SupportTickets");
 
                     b.Navigation("TaskSubmissions");
+                });
+
+            modelBuilder.Entity("Entities.Models.SubjectTask", b =>
+                {
+                    b.Navigation("Feedbacks");
                 });
 
             modelBuilder.Entity("Entities.Models.UniversityCourse", b =>

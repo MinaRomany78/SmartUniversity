@@ -11,12 +11,12 @@ namespace DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
-        { 
-
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
         }
 
         public DbSet<Application> Applications { get; set; }
+        public DbSet<ApplicationUserOtp> ApplicationUserOtps { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Assistant> Assistants { get; set; }
@@ -59,13 +59,15 @@ namespace DataAccess.Data
             builder.Entity<Assistant>()
                 .HasOne(a => a.ApplicationUser)
                 .WithOne(u => u.Assistant)
-                .HasForeignKey<Assistant>(a => a.ApplicationUserId);
+                .HasForeignKey<Assistant>(a => a.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Cascade); // Cascade على المستخدم
 
-            // Assistant ↔ Doctor (many-to-1)
+            // Assistant ↔ Doctor (many-to-1) - منع الكاسكيد لكسر المسار
             builder.Entity<Assistant>()
                 .HasOne(a => a.Doctor)
                 .WithMany(d => d.Assistants)
-                .HasForeignKey(a => a.DoctorID);
+                .HasForeignKey(a => a.DoctorID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Student ↔ PromoCode (many-to-1)
             builder.Entity<Student>()
@@ -101,19 +103,32 @@ namespace DataAccess.Data
                 .HasForeignKey(p => p.AuthorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
             // CommunityPost ↔ UniversityCourse (many-to-1)
             builder.Entity<CommunityPost>()
                 .HasOne(p => p.UniversityCourse)
                 .WithMany()
                 .HasForeignKey(p => p.CourseID);
 
-            // Feedback relations
+            // Feedback ↔ Assistant (no cascade)
             builder.Entity<Feedback>()
                 .HasOne(f => f.Assistant)
                 .WithMany(a => a.Feedbacks)
                 .HasForeignKey(f => f.AssistantID)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // Feedback ↔ SubjectTask (no cascade) - منع المسارات المكررة
+            builder.Entity<Feedback>()
+                .HasOne(f => f.Task)
+                .WithMany(t => t.Feedbacks)
+                .HasForeignKey(f => f.TaskID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Feedback ↔ Student (cascade ممكن نسيبها)
+            builder.Entity<Feedback>()
+                .HasOne(f => f.Student)
+                .WithMany(s => s.Feedbacks)
+                .HasForeignKey(f => f.StudentID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

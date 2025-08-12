@@ -1,4 +1,8 @@
-﻿<div class="container">
+﻿@{
+    ViewData["Title"] = "Student Portal Login";
+}
+
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="glass-card p-5 my-5">
@@ -8,12 +12,13 @@
                     <p class="text-muted">Enter your national ID to access your account</p>
                 </div>
 
-                <form id="studentLoginForm">
+                <!-- الفورم مربوط بالأكشن NationalId -->
+                <form asp-action="NationalId" asp-controller="Student" asp-area="Identity" method="post">
                     <div class="mb-4">
                         <label for="nationalId" class="form-label">National ID Number</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                            <input type="text" class="form-control" id="nationalId"
+                            <input type="text" class="form-control" id="nationalId" name="nationalId"
                                    placeholder="Enter your 14-digit national ID"
                                    pattern="\d{14}"
                                    title="Please enter exactly 14 digits"
@@ -24,41 +29,18 @@
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg" id="loginBtn">
-                            <i class="fas fa-sign-in-alt me-2"></i> Login
+                            <i class="fas fa-sign-in-alt me-2"></i> Send Personal  Information
                         </button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="navigateWithLoading('home.html')">
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-2"></i> Back
-                        </button>
+                        </a>
                     </div>
                 </form>
 
                 <div class="mt-4 pt-3 border-top text-center">
-                    <p>New student? <a href="#" onclick="navigateWithLoading('student-register.html')">Register here</a></p>
+                    <p>Aready Know Personal Data? <a asp-area="Identity" asp-controller="Account" asp-action="Login">Loginhere</a></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const nationalId = document.getElementById('nationalId');
-
-        document.getElementById('studentLoginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Simulate login validation
-            const id = nationalId.value;
-            if (id === '29901010001234') {
-                navigateWithLoading('student-dashboard.html');
-            } else {
-                alert('Invalid National ID');
-            }
-        });
-    });
-
-    function navigateWithLoading(url) {
-        // Optional: Show loading indicator
-        window.location.href = url;
-    }
-</script>

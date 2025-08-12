@@ -27,10 +27,12 @@ namespace DataAccess.Repositories
         public ISupportTicketRepository SupportTickets { get; }
         public ITaskSubmissionRepository TaskSubmissions { get; }
         public IUniversityCourseRepository UniversityCourses { get; }
+        public IApplicationUserOtpRepository ApplicationUserOtps {  get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
             IApplicationRepository applications,
+            IApplicationUserOtpRepository  applicationUserOtps,
             IApplicationUserRepository applicationUsers,
             IAssistantRepository assistants,
             ICommentRepository comments,
@@ -71,6 +73,7 @@ namespace DataAccess.Repositories
             SupportTickets = supportTickets;
             TaskSubmissions = taskSubmissions;
             UniversityCourses = universityCourses;
+            ApplicationUserOtps = applicationUserOtps;
         }
 
         public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();

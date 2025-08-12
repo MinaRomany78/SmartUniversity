@@ -21,6 +21,7 @@
 
 
 
+
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -43,7 +44,7 @@
 
                         <!-- University Staff -->
                     <div class="col-md-4">
-                        <a href="@Url.Action("Course", "Home", new { area = "Customer" })"
+                        <a href="@Url.Action("Register", "Account", new { area = "Identity" })"
                            class="btn w-100 text-white py-4 d-flex flex-column align-items-center justify-content-center role-btn-animated"
                            style="background: linear-gradient(135deg, #3a0ca3, #560bad);">
                             <i class="fas fa-laptop-code fa-2x mb-2"></i>
@@ -72,4 +73,15 @@
             </div>
         </div>
     </div>
-
+    @section Scripts{
+        <script>
+                @if (TempData["success-notification"] is not null)
+    {
+            <text>toastr.success('@TempData["success-notification"]');</text>
+    }
+    @if (TempData["error-notification"] is not null)
+    {
+            <text>toastr.error('@TempData["error-notification"]');</text>
+    }
+        </script>
+    }

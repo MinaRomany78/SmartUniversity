@@ -2,16 +2,11 @@
 
 namespace SmartUniversity.Areas.Customer.Controllers
 {
-    [Area("Customer")]
-    public class HomeController : Controller
+    public class  ExternalStudentController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-       
-       
-
-
     }
 }

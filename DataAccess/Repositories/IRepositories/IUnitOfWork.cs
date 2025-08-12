@@ -23,6 +23,7 @@ namespace DataAccess.Repositories.IRepositories
         ISupportTicketRepository SupportTickets { get; }
         ITaskSubmissionRepository TaskSubmissions { get; }
         IUniversityCourseRepository UniversityCourses { get; }
+        IApplicationUserOtpRepository ApplicationUserOtps {  get; }
 
         Task<int> CompleteAsync();
     }
