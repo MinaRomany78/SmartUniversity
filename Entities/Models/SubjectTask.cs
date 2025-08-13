@@ -16,5 +16,7 @@ namespace Entities.Models
         public DateTime Deadline { get; set; }
         public int AssignedBy { get; set; } 
         public Doctor Doctor { get; set; } = null!;
+        public ICollection<Feedback> Feedbacks { get; set; }= new List<Feedback>();
+
     }
 }

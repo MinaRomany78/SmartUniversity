@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 using DataAccess.Repositories;
+using Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +17,12 @@ builder.Services.AddControllersWithViews();
 // DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IEmailSender,EmailSender>();
 
 // Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option=>option.User.RequireUniqueEmail=true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
-
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
@@ -28,6 +30,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // Register custom repositories (سجل كل إنترفيس مع implementation)
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+builder.Services.AddScoped<IApplicationUserOtpRepository, ApplicationUserOtpRepository>();
+
 builder.Services.AddScoped<IAssistantRepository, AssistantRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommunityPostRepository, CommunityPostRepository>();
