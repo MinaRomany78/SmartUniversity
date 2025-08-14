@@ -1,37 +1,42 @@
-﻿// Program.cs
-using DataAccess.Data;
-using Entities.Models;
-using DataAccess.Repositories.IRepositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-
+﻿using DataAccess.Data;
 using DataAccess.Repositories;
-using Utility;
+using DataAccess.Repositories.IRepositories;
+using Entities.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using Utility;
+using Utility.DBInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add MVC Controllers with Views
 builder.Services.AddControllersWithViews();
 
 // DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<IEmailSender,EmailSender>();
+
+// Email Sender
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 // Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option=>option.User.RequireUniqueEmail=true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
+{
+    option.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
+builder.Services.AddScoped<IDBInitializer, DBInitializer>();
+
+// Generic Repository
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-
-// Register custom repositories (سجل كل إنترفيس مع implementation)
+// Register custom repositories
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 builder.Services.AddScoped<IApplicationUserOtpRepository, ApplicationUserOtpRepository>();
-
 builder.Services.AddScoped<IAssistantRepository, AssistantRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommunityPostRepository, CommunityPostRepository>();
@@ -50,12 +55,12 @@ builder.Services.AddScoped<ISupportTicketRepository, SupportTicketRepository>();
 builder.Services.AddScoped<ITaskSubmissionRepository, TaskSubmissionRepository>();
 builder.Services.AddScoped<IUniversityCourseRepository, UniversityCourseRepository>();
 
-// UnitOfWork (بعد تسجيل كل الريبو)
+// UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Error Handling
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -63,19 +68,24 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// serve wwwroot static files
 app.UseStaticFiles();
 
 app.UseRouting();
 
-// IMPORTANT: Authentication before Authorization
+// Authentication before Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map routes (عدل الـ default route لو محتاج)
+// Default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
+// Initialize Database & Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDBInitializer>();
+    dbInitializer.Initialize();
+}
 
 app.Run();
