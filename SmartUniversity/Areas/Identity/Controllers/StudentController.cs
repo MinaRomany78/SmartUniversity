@@ -39,7 +39,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
             if (applicationData is null)
             {
                 TempData["error-notification"] = "The National Id Not Found";
-                return View(nationalId);
+                return View();
             }
 
             var student = await _unitOfWork.Students
@@ -48,7 +48,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
             if (student == null)
             {
                 TempData["error-notification"] = "Student data not found";
-                return View(nationalId);
+                return View();
             }
 
             var identityUser = await _userManager.FindByIdAsync(student.ApplicationUserId);

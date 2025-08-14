@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 using Utility;
+using Utility.DBInitializer;
 
 namespace SmartUniversity.Areas.Identity.Controllers
 {
@@ -111,13 +112,13 @@ namespace SmartUniversity.Areas.Identity.Controllers
 
                 var roles = await _userManager.GetRolesAsync(user);
 
-                if (roles.Contains("UniversityStudent"))
+                if (roles.Contains($"{SD.UniversityStudent}"))
                     return RedirectToAction("index", "UniversityStudent", new { area = "Customer" });
 
-                if (roles.Contains("Doctor") || roles.Contains("Assistant"))
+                if (roles.Contains($"{SD.Doctor}") || roles.Contains($"{SD.Assistant}"))
                     return RedirectToAction("index", "DoctorsAndAssistant", new { area = "Customer" });
 
-                if (roles.Contains("ExternalStudent"))
+                if (roles.Contains($"{SD.ExternalStudent}"))
                     return RedirectToAction("index", "ExternalStudent", new { area = "Customer" });
 
                 return RedirectToAction("index", "Home", new { area = "Customer" });
