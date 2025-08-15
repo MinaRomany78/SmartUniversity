@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
   <!-- App styles -->
   <link rel="stylesheet" href="~/css/site-admin.css" asp-append-version="true" />
 </head>
@@ -34,7 +36,7 @@
       <div class="nav-section text-uppercase text-muted small px-2 mt-3">People</div>
       <a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Index"><i class="bi bi-people me-2"></i><span>All Users</span></a>
       <a class="nav-link" asp-area="Admin" asp-controller="Students" asp-action="Index"><i class="bi bi-person-badge me-2"></i><span>Students</span></a>
-      <a class="nav-link" asp-area="Admin" asp-controller="Faculty" asp-action="Index"><i class="bi bi-person-video3 me-2"></i><span>Faculty</span></a>
+      <a class="nav-link" asp-area="Admin" asp-controller="Doctor" asp-action="Index"><i class="bi bi-person-video3 me-2"></i><span>Doctors</span></a>
       <a class="nav-link" asp-area="Admin" asp-controller="Assistants" asp-action="Index"><i class="bi bi-person-workspace me-2"></i><span>Assistants</span></a>
       <a class="nav-link" asp-area="Admin" asp-controller="NonStudents" asp-action="Index"><i class="bi bi-person-lines-fill me-2"></i><span>Non-Students</span></a>
 
@@ -64,7 +66,7 @@
     <header class="topbar d-flex align-items-center justify-content-between px-3">
       <div class="d-flex align-items-center gap-2">
         <button class="btn btn-outline-secondary d-lg-none" id="mobileMenuBtn" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
-        <div class="fw-semibold">@ViewData["AppTitle"] ?? "Admin Panel"</div>
+        <div class="fw-semibold">DashBoard</div>
       </div>
       <form class="d-none d-md-flex" role="search" aria-label="Site search">
         <div class="input-group">
@@ -114,5 +116,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="~/js/admin.js" asp-append-version="true"></script>
+
+    <!-- JQuery (لو مش موجود أصلاً) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
