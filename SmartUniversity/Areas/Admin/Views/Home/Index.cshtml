@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+@section Breadcrumb {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
+}
+@section PageActions {
+    <a class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>New User</a>
+    <a class="btn btn-outline-secondary"><i class="bi bi-upload me-2"></i>Import</a>
+}
+
+<div class="row g-3">
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-soft p-3 kpi kpi-accent-1">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted-2">Total Users</div>
+                    <div class="value fw-semibold">18,420</div>
+                </div>
+                <i class="bi bi-people fs-2"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-soft p-3 kpi kpi-accent-2">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted-2">Students</div>
+                    <div class="value fw-semibold">12,305</div>
+                </div>
+                <i class="bi bi-person-badge fs-2"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-soft p-3 kpi kpi-accent-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted-2">Faculty</div>
+                    <div class="value fw-semibold">740</div>
+                </div>
+                <i class="bi bi-person-video3 fs-2"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card card-soft p-3 kpi kpi-accent-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="text-muted-2">Assistants</div>
+                    <div class="value fw-semibold">296</div>
+                </div>
+                <i class="bi bi-person-workspace fs-2"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8">
+        <div class="card card-soft p-3">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h2 class="h6 mb-0">User Growth</h2>
+            </div>
+            <canvas id="lineChart" height="120"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card card-soft p-3">
+            <h2 class="h6">Users by Role</h2>
+            <canvas id="donutChart" height="200"></canvas>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card card-soft p-0 table-card">
+            <div class="p-3 d-flex align-items-center justify-content-between">
+                <h2 class="h6 mb-0">Recent Users</h2>
+                <div class="input-group" style="max-width: 280px;">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input id="tableFilter" type="text" class="form-control" placeholder="Filter..." />
+                </div>
+            </div>
+            <div class="table-responsive p-3 pt-0">
+                <table id="usersTable" class="table table-hover align-middle w-100">
+                    <thead class="table-light">
+                        <tr><th>Name</th><th>Role</th><th>Status</th><th>Joined</th><th class="text-end">Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Omar Elsayed</td><td>Student</td><td><span class="badge text-bg-success">Active</span></td><td>2025-07-02</td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+                        <tr><td>Hadia Nour</td><td>Faculty</td><td><span class="badge text-bg-warning">Pending</span></td><td>2025-07-01</td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+                        <tr><td>Mohamed Fathy</td><td>Assistant</td><td><span class="badge text-bg-success">Active</span></td><td>2025-06-28</td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js + DataTables (via CDN) -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+<script>
+    // Charts
+    const lineCtx = document.getElementById('lineChart');
+    if (lineCtx) {
+      new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],
+          datasets: [{
+            label: 'Users',
+            data: [200, 350, 420, 620, 700, 820, 980, 1200],
+            fill: true,
+            tension: .35,
+            borderWidth: 2
+          }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+      });
+    }
+    const donutCtx = document.getElementById('donutChart');
+    if (donutCtx) {
+      new Chart(donutCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Students','Faculty','Assistants','Non-Students'],
+          datasets: [{ data: [12305, 740, 296, 5079] }]
+        },
+        options: { plugins: { legend: { position: 'bottom' } }, cutout: '65%' }
+      });
+    }
+
+    // DataTables
+    const table = new DataTable('#usersTable', { paging: true, searching: true, info: false, lengthChange: false });
+    const filter = document.getElementById('tableFilter');
+    if(filter){ filter.addEventListener('keyup', (e)=> table.search(e.target.value).draw()); }
+</script>
