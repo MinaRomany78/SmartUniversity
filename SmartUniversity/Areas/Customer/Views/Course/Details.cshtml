@@ -1,0 +1,22 @@
+﻿@model Entities.Models.UniversityCourse
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2>@Model.Name</h2>
+
+<div class="card p-3">
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>Credit Hours:</strong> @Model.CreditHours</p>
+    <p><strong>Term:</strong> @Model.Term</p>
+</div>
+
+<form asp-action="Enroll" method="post">
+    <input type="hidden" name="courseId" value="@Model.Id" />
+    <!-- لحد ما تعمل Authentication هنخلي StudentId ثابت للتجربة -->
+    <input type="hidden" name="studentId" value="1" />
+    <button type="submit" class="btn btn-success mt-3">Enroll</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Courses</a>
