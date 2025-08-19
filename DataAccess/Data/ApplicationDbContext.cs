@@ -25,8 +25,9 @@ namespace DataAccess.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<OptionalCourse> OptionalCourses { get; set; }
         public DbSet<OptionalCourseEnrollment> OptionalCourseEnrollments { get; set; }
-        public DbSet<CourseAssignment> CourseAssignments { get; set; }
-        public DbSet<CourseAssistant> CourseAssistants { get; set; }
+        //public DbSet<CourseAssignment> CourseAssignments { get; set; }
+        //public DbSet<CourseAssistant> CourseAssistants { get; set; }
+        public DbSet<DoctorAssistant> DoctorAssistants { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<SubjectTask> SubjectTasks { get; set; }
         public DbSet<TaskSubmission> TaskSubmissions { get; set; }
@@ -63,11 +64,11 @@ namespace DataAccess.Data
                 .OnDelete(DeleteBehavior.Cascade); // Cascade على المستخدم
 
             // Assistant ↔ Doctor (many-to-1) - منع الكاسكيد لكسر المسار
-            builder.Entity<Assistant>()
-                .HasOne(a => a.Doctor)
-                .WithMany(d => d.Assistants)
-                .HasForeignKey(a => a.DoctorID)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<Assistant>()
+            //    .HasOne(a => a.Doctor)
+            //    .WithMany(d => d.Assistants)
+            //    .HasForeignKey(a => a.DoctorID)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             // Student ↔ PromoCode (many-to-1)
             builder.Entity<Student>()

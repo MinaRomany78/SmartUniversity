@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250813155456_ApplicationUserOtpAdded")]
-    partial class ApplicationUserOtpAdded
+    [Migration("20250819142944_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("GenerateEmail")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -69,6 +72,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -80,7 +86,15 @@ namespace DataAccess.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -177,15 +191,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("DoctorID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
-
-                    b.HasIndex("DoctorID");
 
                     b.ToTable("Assistants");
                 });
@@ -267,52 +276,6 @@ namespace DataAccess.Migrations
                     b.ToTable("CommunityPosts");
                 });
 
-            modelBuilder.Entity("Entities.Models.CourseAssignment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DoctorID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UniversityCourseID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorID");
-
-                    b.HasIndex("UniversityCourseID");
-
-                    b.ToTable("CourseAssignments");
-                });
-
-            modelBuilder.Entity("Entities.Models.CourseAssistant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AssistantID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UniversityCourseID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssistantID");
-
-                    b.HasIndex("UniversityCourseID");
-
-                    b.ToTable("CourseAssistants");
-                });
-
             modelBuilder.Entity("Entities.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
@@ -331,6 +294,21 @@ namespace DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("Entities.Models.DoctorAssistant", b =>
+                {
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AssistantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorId", "AssistantId");
+
+                    b.HasIndex("AssistantId");
+
+                    b.ToTable("DoctorAssistants");
                 });
 
             modelBuilder.Entity("Entities.Models.Enrollment", b =>
@@ -661,6 +639,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -670,6 +651,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DoctorID");
 
                     b.ToTable("UniversityCourses");
                 });
@@ -826,15 +809,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Doctor", "Doctor")
-                        .WithMany("Assistants")
-                        .HasForeignKey("DoctorID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("Entities.Models.Comment", b =>
@@ -887,44 +862,6 @@ namespace DataAccess.Migrations
                     b.Navigation("UniversityCourse");
                 });
 
-            modelBuilder.Entity("Entities.Models.CourseAssignment", b =>
-                {
-                    b.HasOne("Entities.Models.Doctor", "Doctor")
-                        .WithMany("CourseAssignments")
-                        .HasForeignKey("DoctorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.UniversityCourse", "UniversityCourse")
-                        .WithMany("CourseAssignments")
-                        .HasForeignKey("UniversityCourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("UniversityCourse");
-                });
-
-            modelBuilder.Entity("Entities.Models.CourseAssistant", b =>
-                {
-                    b.HasOne("Entities.Models.Assistant", "Assistant")
-                        .WithMany("CourseAssistants")
-                        .HasForeignKey("AssistantID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.UniversityCourse", "UniversityCourse")
-                        .WithMany("CourseAssistants")
-                        .HasForeignKey("UniversityCourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assistant");
-
-                    b.Navigation("UniversityCourse");
-                });
-
             modelBuilder.Entity("Entities.Models.Doctor", b =>
                 {
                     b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
@@ -934,6 +871,25 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Entities.Models.DoctorAssistant", b =>
+                {
+                    b.HasOne("Entities.Models.Assistant", "Assistant")
+                        .WithMany()
+                        .HasForeignKey("AssistantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assistant");
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("Entities.Models.Enrollment", b =>
@@ -1093,6 +1049,17 @@ namespace DataAccess.Migrations
                     b.Navigation("Task");
                 });
 
+            modelBuilder.Entity("Entities.Models.UniversityCourse", b =>
+                {
+                    b.HasOne("Entities.Models.Doctor", "Doctor")
+                        .WithMany("UniversityCourses")
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1157,8 +1124,6 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("CourseAssistants");
-
                     b.Navigation("Feedbacks");
                 });
 
@@ -1169,11 +1134,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.Doctor", b =>
                 {
-                    b.Navigation("Assistants");
-
-                    b.Navigation("CourseAssignments");
-
                     b.Navigation("Tasks");
+
+                    b.Navigation("UniversityCourses");
                 });
 
             modelBuilder.Entity("Entities.Models.OptionalCourse", b =>
@@ -1212,10 +1175,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.UniversityCourse", b =>
                 {
-                    b.Navigation("CourseAssignments");
-
-                    b.Navigation("CourseAssistants");
-
                     b.Navigation("Enrollments");
 
                     b.Navigation("Materials");
