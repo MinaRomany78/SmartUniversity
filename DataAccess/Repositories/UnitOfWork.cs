@@ -15,6 +15,7 @@ namespace DataAccess.Repositories
         public ICommunityPostRepository CommunityPosts { get; }
         //public ICourseAssignmentRepository CourseAssignments { get; }
         //public ICourseAssistantRepository CourseAssistants { get; }
+        public IAssistantCourseRepository AssistantCourses { get; }
         public IDoctorAssistantRepository DoctorAssistants { get; }
         public IDoctorRepository Doctors { get; }
         public IEnrollmentRepository Enrollments { get; }
@@ -40,6 +41,7 @@ namespace DataAccess.Repositories
             ICommunityPostRepository communityPosts,
             //ICourseAssignmentRepository courseAssignments,
             //ICourseAssistantRepository courseAssistants,
+            IAssistantCourseRepository assistantCourses,
             IDoctorAssistantRepository doctorAssistants,
             IDoctorRepository doctors,
             IEnrollmentRepository enrollments,
@@ -63,6 +65,7 @@ namespace DataAccess.Repositories
             CommunityPosts = communityPosts;
             //CourseAssignments = courseAssignments;
             //CourseAssistants = courseAssistants;
+            AssistantCourses = assistantCourses;
             DoctorAssistants = doctorAssistants;
             Doctors = doctors;
             Enrollments = enrollments;

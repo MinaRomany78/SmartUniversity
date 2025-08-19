@@ -11,10 +11,8 @@ namespace Entities.Models
         public int Id { get; set; }
         public string ApplicationUserId { get; set; } = null!;
         public ApplicationUser ApplicationUser { get; set; } = null!;
-        //public ICollection<CourseAssignment> CourseAssignments { get; } = new List<CourseAssignment>();
         public ICollection<SubjectTask> Tasks { get; } = new List<SubjectTask>();
-        //public ICollection<Assistant> Assistants { get; } = new List<Assistant>();
         public ICollection<UniversityCourse> UniversityCourses { get; } = new List<UniversityCourse>();
-
+        public ICollection<DoctorAssistant> DoctorAssistants { get; } = new List<DoctorAssistant>();
     }
 }

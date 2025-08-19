@@ -27,6 +27,7 @@ namespace DataAccess.Data
         public DbSet<OptionalCourseEnrollment> OptionalCourseEnrollments { get; set; }
         //public DbSet<CourseAssignment> CourseAssignments { get; set; }
         //public DbSet<CourseAssistant> CourseAssistants { get; set; }
+        public DbSet<AssistantCourse> AssistantCourses { get; set; }
         public DbSet<DoctorAssistant> DoctorAssistants { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<SubjectTask> SubjectTasks { get; set; }

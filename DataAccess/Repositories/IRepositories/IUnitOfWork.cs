@@ -12,6 +12,7 @@ namespace DataAccess.Repositories.IRepositories
         //ICourseAssignmentRepository CourseAssignments { get; }
         //ICourseAssistantRepository CourseAssistants { get; }
         IDoctorAssistantRepository DoctorAssistants { get; }
+        IAssistantCourseRepository AssistantCourses { get; }
         IDoctorRepository Doctors { get; }
         IEnrollmentRepository Enrollments { get; }
         IFeedbackRepository Feedbacks { get; }

@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [PrimaryKey(nameof(DoctorId), nameof(AssistantId), nameof(CourseId))]
-    public class DoctorAssistant
+    [PrimaryKey(nameof(AssistantId), nameof(CourseId))]
+    public class AssistantCourse
     {
-        public int DoctorId { get; set; }
-        public Doctor Doctor { get; set; } = null!;
         public int AssistantId { get; set; }
         public Assistant Assistant { get; set; } = null!;
         public int CourseId { get; set; }
