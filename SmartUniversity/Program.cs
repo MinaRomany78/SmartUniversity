@@ -42,6 +42,7 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommunityPostRepository, CommunityPostRepository>();
 //builder.Services.AddScoped<ICourseAssignmentRepository, CourseAssignmentRepository>();
 //builder.Services.AddScoped<ICourseAssistantRepository, CourseAssistantRepository>();
+builder.Services.AddScoped<IAssistantCourseRepository, AssistantCourseRepository>(); 
 builder.Services.AddScoped<IDoctorAssistantRepository, DoctorAssistantRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
