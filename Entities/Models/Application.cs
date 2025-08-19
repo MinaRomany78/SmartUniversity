@@ -22,5 +22,8 @@ namespace Entities.Models
         public string Gender { get; set; } = null!;
         [Required]
         public string Address { get; set; } = null!;
+        [Required]
+        public bool GenerateEmail { get; set; } = false;
+
     }
 }
