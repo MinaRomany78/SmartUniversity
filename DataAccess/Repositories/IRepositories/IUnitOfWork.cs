@@ -9,8 +9,9 @@ namespace DataAccess.Repositories.IRepositories
         IAssistantRepository Assistants { get; }
         ICommentRepository Comments { get; }
         ICommunityPostRepository CommunityPosts { get; }
-        ICourseAssignmentRepository CourseAssignments { get; }
-        ICourseAssistantRepository CourseAssistants { get; }
+        //ICourseAssignmentRepository CourseAssignments { get; }
+        //ICourseAssistantRepository CourseAssistants { get; }
+        IDoctorAssistantRepository DoctorAssistants { get; }
         IDoctorRepository Doctors { get; }
         IEnrollmentRepository Enrollments { get; }
         IFeedbackRepository Feedbacks { get; }

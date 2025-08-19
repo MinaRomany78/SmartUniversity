@@ -13,8 +13,9 @@ namespace DataAccess.Repositories
         public IAssistantRepository Assistants { get; }
         public ICommentRepository Comments { get; }
         public ICommunityPostRepository CommunityPosts { get; }
-        public ICourseAssignmentRepository CourseAssignments { get; }
-        public ICourseAssistantRepository CourseAssistants { get; }
+        //public ICourseAssignmentRepository CourseAssignments { get; }
+        //public ICourseAssistantRepository CourseAssistants { get; }
+        public IDoctorAssistantRepository DoctorAssistants { get; }
         public IDoctorRepository Doctors { get; }
         public IEnrollmentRepository Enrollments { get; }
         public IFeedbackRepository Feedbacks { get; }
@@ -37,8 +38,9 @@ namespace DataAccess.Repositories
             IAssistantRepository assistants,
             ICommentRepository comments,
             ICommunityPostRepository communityPosts,
-            ICourseAssignmentRepository courseAssignments,
-            ICourseAssistantRepository courseAssistants,
+            //ICourseAssignmentRepository courseAssignments,
+            //ICourseAssistantRepository courseAssistants,
+            IDoctorAssistantRepository doctorAssistants,
             IDoctorRepository doctors,
             IEnrollmentRepository enrollments,
             IFeedbackRepository feedbacks,
@@ -59,8 +61,9 @@ namespace DataAccess.Repositories
             Assistants = assistants;
             Comments = comments;
             CommunityPosts = communityPosts;
-            CourseAssignments = courseAssignments;
-            CourseAssistants = courseAssistants;
+            //CourseAssignments = courseAssignments;
+            //CourseAssistants = courseAssistants;
+            DoctorAssistants = doctorAssistants;
             Doctors = doctors;
             Enrollments = enrollments;
             Feedbacks = feedbacks;
