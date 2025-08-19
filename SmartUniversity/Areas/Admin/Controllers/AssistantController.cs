@@ -36,8 +36,8 @@ namespace SmartUniversity.Areas.Admin.Controllers
             var totalAssistantsInPage = 15;
             var totalPages = Math.Ceiling((double)assistants.Count() / totalAssistantsInPage);
 
-            if (totalPages < page)
-                return NotFound();
+            if (page > totalPages && totalPages != 0)
+                return View();
 
             assistants = assistants
                 .Skip((page - 1) * (int)totalAssistantsInPage)

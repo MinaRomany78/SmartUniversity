@@ -35,8 +35,8 @@ namespace SmartUniversity.Areas.Admin.Controllers
             var totalDoctorsInPage = 15;
             var totalPages = Math.Ceiling((double)doctors.Count() / totalDoctorsInPage);
 
-            if (totalPages < page)
-                return NotFound();
+            if (page > totalPages && totalPages != 0)
+                return View(); ;
 
             doctors = doctors
                 .Skip((page - 1) * (int)totalDoctorsInPage)

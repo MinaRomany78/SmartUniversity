@@ -48,6 +48,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
             var result= await _userManager.CreateAsync(user,registerVM.Password);
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, SD.ExternalStudent);
                 TempData["success-notification"] = "User Created successfully!";
               var  token=await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var link = Url.Action(nameof(ConfirmEmail), "Account", new { 

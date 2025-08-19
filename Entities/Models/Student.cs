@@ -13,7 +13,7 @@ namespace Entities.Models
         public ApplicationUser ApplicationUser { get; set; } = null!;
         public string NationalID { get; set; } = null!;
         public bool IsUniversityStudent { get; set; }
-        public string PromoCode { get; set; } = string.Empty;// FK to PromoCode
+        public string? PromoCode { get; set; } // FK to PromoCode
         public PromoCode PromoCodeEntity { get; set; } = null!;
         public ICollection<Enrollment> Enrollments { get; } = new List<Enrollment>();
         public ICollection<OptionalCourseEnrollment> OptionalCourseEnrollments { get; } = new List<OptionalCourseEnrollment>();
