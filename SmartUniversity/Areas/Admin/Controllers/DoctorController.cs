@@ -236,6 +236,7 @@ namespace SmartUniversity.Areas.Admin.Controllers
                 include: new Expression<Func<Doctor, object>>[]
                 {
                     e => e.ApplicationUser,
+                    e => e.DoctorAssistants
                 });
 
             if (doctor is null)
@@ -249,25 +250,41 @@ namespace SmartUniversity.Areas.Admin.Controllers
             doctor.ApplicationUser.UserName = vm.UserName;
             doctor.ApplicationUser.EmailConfirmed = vm.IsEmailConfirmed;
 
-            doctor.DoctorAssistants.Clear();
-            if (vm.SelectedAssistantIds != null && vm.SelectedAssistantIds.Any()
-                && vm.SelectedCourseIds != null && vm.SelectedCourseIds.Any())
+            var currentPairs = doctor.DoctorAssistants.Select(e => new
             {
-                var uniquePairs = vm.SelectedAssistantIds
-                    .SelectMany(aid => vm.SelectedCourseIds.Select(cid => new { AssistantId = aid, CourseId = cid }))
-                    .Distinct();
+                e.AssistantId,
+                e.CourseId
+            });
 
-                foreach (var pair in uniquePairs)
+            var newPairs = (vm.SelectedAssistantIds ?? Enumerable.Empty<int>())
+                .SelectMany(aid => (vm.SelectedCourseIds ?? Enumerable.Empty<int>())
+                .Select(cid => new { AssistantId = aid, CourseId = cid }))
+                .Distinct()
+                .ToList();
+
+            var toRemove = doctor.DoctorAssistants
+                .Where(da => !newPairs.Any(np => np.AssistantId == da.AssistantId && np.CourseId == da.CourseId))
+                .ToList();
+
+            foreach (var da in toRemove)
+            {
+                doctor.DoctorAssistants.Remove(da);
+            }
+
+
+            foreach (var pair in newPairs)
+            {
+                var isAssistantAssignedToCourse = (await _unitOfWork.AssistantCourses
+                    .GetAsync(e => e.AssistantId == pair.AssistantId && e.CourseId == pair.CourseId)).Any();
+
+                if (!isAssistantAssignedToCourse)
                 {
-                    var isAssistantAssignedToCourse = (await _unitOfWork.AssistantCourses
-                          .GetAsync(e => e.AssistantId == pair.AssistantId && e.CourseId == pair.CourseId)).Any();
+                    ModelState.AddModelError("", $"Assistant {pair.AssistantId} is not assigned to Course {pair.CourseId}");
+                    return View(vm);
+                }
 
-                    if (!isAssistantAssignedToCourse)
-                    {
-                            ModelState.AddModelError("", $"Assistant {pair.AssistantId} is not assigned to Course {pair.CourseId}");
-                            return View(vm);
-                    }
-
+                if (!currentPairs.Any(cp => cp.AssistantId == pair.AssistantId && cp.CourseId == pair.CourseId))
+                {
                     doctor.DoctorAssistants.Add(new DoctorAssistant
                     {
                         AssistantId = pair.AssistantId,
@@ -298,11 +315,21 @@ namespace SmartUniversity.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var doctor = await _unitOfWork.Doctors.GetOneAsync(e => e.Id == id);
+            var doctor = await _unitOfWork.Doctors.GetOneAsync(e => e.Id == id,
+                include: new Expression<Func<Doctor, object>>[]
+                {
+                    e => e.DoctorAssistants,
+                    e => e.UniversityCourses,
+                    e => e.ApplicationUser
+                });
 
             if (doctor is not null)
             {
+                doctor.DoctorAssistants.Clear();
+                doctor.UniversityCourses.Clear();
+
                 await _unitOfWork.Doctors.DeleteAsync(doctor);
+                await _unitOfWork.Doctors.CommitAsync();
 
                 TempData["success-notification"] = "Doctor Data Deleted Successfully";
 
