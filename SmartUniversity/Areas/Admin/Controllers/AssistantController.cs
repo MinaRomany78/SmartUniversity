@@ -210,11 +210,21 @@ namespace SmartUniversity.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var assistant = await _unitOfWork.Assistants.GetOneAsync(e => e.Id == id);
+            var assistant = await _unitOfWork.Assistants.GetOneAsync(e => e.Id == id,
+                include: new Expression<Func<Assistant, object>>[]
+                {
+                    e => e.DoctorAssistants,
+                    e => e.AssistantCourses,
+                    e => e.ApplicationUser
+                });
 
             if (assistant is not null)
             {
+                assistant.DoctorAssistants.Clear();
+                assistant.AssistantCourses.Clear();
+
                 await _unitOfWork.Assistants.DeleteAsync(assistant);
+                await _unitOfWork.Assistants.CommitAsync();
 
                 TempData["success-notification"] = "Assistant Data Deleted Successfully";
 
