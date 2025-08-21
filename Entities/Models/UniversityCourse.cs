@@ -12,7 +12,7 @@ namespace Entities.Models
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int CreditHours { get; set; }
-        public string Term { get; set; } = string.Empty;
+       // public string Term { get; set; } = string.Empty;
         public ICollection<Enrollment> Enrollments { get; } = new List<Enrollment>();
         public ICollection<Material> Materials { get; } = new List<Material>();
         public ICollection<SubjectTask> Tasks { get; } = new List<SubjectTask>();
@@ -20,5 +20,9 @@ namespace Entities.Models
         public Doctor Doctor { get; set; } = null!;
         public ICollection<DoctorAssistant> DoctorAssistants { get; } = new List<DoctorAssistant>();
         public ICollection<AssistantCourse> AssistantCourses { get; } = new List<AssistantCourse>();
+        public int DepartmentID {  get; set; }
+        public Department Department { get; set; }  =null!;
+        public int TermId { get; set; }
+        public Term Term { get; set; } = null!;
     }
 }
