@@ -26,6 +26,8 @@ namespace DataAccess.Repositories.IRepositories
         ITaskSubmissionRepository TaskSubmissions { get; }
         IUniversityCourseRepository UniversityCourses { get; }
         IApplicationUserOtpRepository ApplicationUserOtps {  get; }
+        IDepartmentRepository Departments {  get; }
+        ITermRepository Terms { get; }
 
         Task<int> CompleteAsync();
     }

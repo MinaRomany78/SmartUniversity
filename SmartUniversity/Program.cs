@@ -40,6 +40,8 @@ builder.Services.AddScoped<IApplicationUserOtpRepository, ApplicationUserOtpRepo
 builder.Services.AddScoped<IAssistantRepository, AssistantRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommunityPostRepository, CommunityPostRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<ITermRepository, TermRepository>();
 //builder.Services.AddScoped<ICourseAssignmentRepository, CourseAssignmentRepository>();
 //builder.Services.AddScoped<ICourseAssistantRepository, CourseAssistantRepository>();
 builder.Services.AddScoped<IAssistantCourseRepository, AssistantCourseRepository>(); 

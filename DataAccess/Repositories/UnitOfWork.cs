@@ -30,9 +30,12 @@ namespace DataAccess.Repositories
         public ITaskSubmissionRepository TaskSubmissions { get; }
         public IUniversityCourseRepository UniversityCourses { get; }
         public IApplicationUserOtpRepository ApplicationUserOtps {  get; }
+        public IDepartmentRepository Departments {  get; }
+        public ITermRepository Terms { get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
+            IDepartmentRepository departments,
             IApplicationRepository applications,
             IApplicationUserOtpRepository  applicationUserOtps,
             IApplicationUserRepository applicationUsers,
@@ -54,7 +57,8 @@ namespace DataAccess.Repositories
             ISubjectTaskRepository subjectTasks,
             ISupportTicketRepository supportTickets,
             ITaskSubmissionRepository taskSubmissions,
-            IUniversityCourseRepository universityCourses
+            IUniversityCourseRepository universityCourses,
+            ITermRepository terms 
             )
         {
             _context = context;
@@ -80,6 +84,8 @@ namespace DataAccess.Repositories
             TaskSubmissions = taskSubmissions;
             UniversityCourses = universityCourses;
             ApplicationUserOtps = applicationUserOtps;
+            Departments = departments;
+            Terms = terms;
         }
 
         public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();
