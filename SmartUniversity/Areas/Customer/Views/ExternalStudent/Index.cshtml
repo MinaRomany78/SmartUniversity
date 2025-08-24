@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home";
     Layout = "_Layout";
 }
+@model IEnumerable<Entities.Models.UniversityCourse>
+
 
 <!-- Hero Section -->
 <section class="hero py-5">
@@ -56,6 +58,38 @@
         <a href="/Courses" class="cta-btn shadow-lg">Get Started Now</a>
     </div>
 </section>
+<div class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">📚 Available Courses</h2>
+
+    <div class="row g-4">
+@foreach (var course in Model)
+{
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm border-0 h-100 rounded-4 overflow-hidden">
+                    <!-- صورة الكورس -->
+                    <img src="~/images/course_2.jpg" class="card-img-top" alt="@course.Name" style="height:200px; object-fit:cover;">
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-primary">@course.Name</h5>
+                        <p class="card-text text-muted mb-2">
+                            <i class="fas fa-building me-2 text-secondary"></i>
+                            Department: <strong>@course.Department?.Name</strong>
+                        </p>
+                        <p class="card-text text-muted mb-3">
+                            <i class="fas fa-calendar-alt me-2 text-secondary"></i>
+                            Term: <strong>@course.Term?.Name</strong>
+                        </p>
+
+                        <div class="mt-auto">
+                            <a href="@Url.Action("Details", "ExternalStudent", new { id = course.Id, area = "Customer" })"
+                               class="btn btn-gradient w-100 fw-semibold rounded-pill">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+}
 
 @section Scripts {
     <style>
@@ -71,7 +105,7 @@
             animation: float 4s ease-in-out infinite;
         }
 
-       float {
+        float {
             0%
 
         {

@@ -4,19 +4,19 @@
     ViewData["Title"] = "Course Enrollment Registration";
 }
 
-<!-- Custom Styles -->
+<!-- Glass Styles -->
 <style>
-    .card {
-        border-radius: 1rem;
-        overflow: hidden;
-    }
-
-    .card-header {
-        background: linear-gradient(135deg, #3a0ca3, #560bad);
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 1.5rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .form-control {
-        border-radius: .5rem;
+        border-radius: .75rem;
         transition: all 0.3s ease;
     }
 
@@ -33,7 +33,7 @@
 
         .btn-gradient:hover {
             background: linear-gradient(135deg, #560bad, #3a0ca3);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
     .progress-bar {
@@ -41,105 +41,96 @@
     }
 </style>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-lg border-0">
-                <div class="card-header text-white p-4">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-book-open fa-2x me-3"></i>
-                        <div>
-                            <h2 class="mb-0 fw-bold">Course Enrollment</h2>
-                            <small class="opacity-75">Sign up to access university courses</small>
-                        </div>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="glass-card p-5" style="max-width: 650px; width: 100%;">
+
+        <!-- Title & Subtitle -->
+        <div class="text-center mb-4">
+            <img src="~/images/Logo1.png" alt="Smart University" style="height: 70px;" class="mb-3">          
+            <h2 class="fw-bold mb-1">Course Enrollment</h2>
+            <p class="text-muted">Sign up to access university courses</p>
+        </div>
+
+        <!-- Form -->
+        <form asp-action="Register" method="post" id="registrationForm">
+
+            <!-- Personal Information -->
+            <h5 class="text-primary fw-bold mb-3"><i class="fas fa-user me-2"></i>Personal Information</h5>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="UserName" id="UserName" class="form-control" placeholder=" " required>
+                        <label asp-for="UserName">Username</label>
+                        <span asp-validation-for="UserName" class="text-danger small"></span>
                     </div>
                 </div>
-
-                <div class="card-body p-4">
-                    <form asp-action="Register" method="post" id="registrationForm">
-
-                        <!-- Personal Information -->
-                        <h5 class="text-primary fw-bold mb-3"><i class="fas fa-user me-2"></i>Personal Information</h5>
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input asp-for="UserName" id="UserName" class="form-control" placeholder=" " required>
-                                    <label asp-for="UserName">Username</label>
-                                    <span asp-validation-for="UserName" class="text-danger small"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input asp-for="FullName" id="FullName" class="form-control" placeholder=" " required>
-                                    <label asp-for="FullName">Full Name</label>
-                                    <span asp-validation-for="FullName" class="text-danger small"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input asp-for="Email" id="Email" type="email" class="form-control" placeholder=" " required>
-                                    <label asp-for="Email">Email Address</label>
-                                    <span asp-validation-for="Email" class="text-danger small"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Account Security -->
-                        <h5 class="text-primary fw-bold mb-3"><i class="fas fa-lock me-2"></i>Account Security</h5>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating position-relative">
-                                    <input asp-for="Password" id="Password" type="password" class="form-control" placeholder=" " required>
-                                    <label asp-for="Password">Password</label>
-                                    <span asp-validation-for="Password" class="text-danger small"></span>
-                                    <button type="button" class="btn btn-sm btn-light position-absolute end-0 top-50 translate-middle-y me-2"
-                                            onclick="togglePassword('Password', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating position-relative">
-                                    <input asp-for="ConfirmPassword" id="ConfirmPassword" type="password" class="form-control" placeholder=" " required>
-                                    <label asp-for="ConfirmPassword">Confirm Password</label>
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
-                                    <button type="button" class="btn btn-sm btn-light position-absolute end-0 top-50 translate-middle-y me-2"
-                                            onclick="togglePassword('ConfirmPassword', this)">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="progress mt-3" style="height: 6px;">
-                            <div id="passwordStrength" class="progress-bar rounded-pill" role="progressbar"></div>
-                        </div>
-                        <small class="text-muted">Password must contain at least 8 characters with uppercase, lowercase, number and special character</small>
-
-                        <!-- Terms -->
-                        <div class="form-check mt-4">
-                            <input class="form-check-input" type="checkbox" id="agreeTerms" required>
-                            <label class="form-check-label" for="agreeTerms">
-                                I agree to the <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
-                            </label>
-                        </div>
-
-                        <!-- Submit -->
-                        <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-gradient btn-lg text-white rounded-pill shadow">
-                                <i class="fas fa-user-plus me-2"></i> Register
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="card-footer bg-light text-center py-3">
-                    Already have an account? <a asp-action="Login" class="fw-bold text-primary text-decoration-none">Sign in here</a>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input asp-for="FullName" id="FullName" class="form-control" placeholder=" " required>
+                        <label asp-for="FullName">Full Name</label>
+                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                    </div>
                 </div>
             </div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Email" id="Email" type="email" class="form-control" placeholder=" " required>
+                <label asp-for="Email">Email Address</label>
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+
+            <!-- Account Security -->
+            <h5 class="text-primary fw-bold mb-3"><i class="fas fa-lock me-2"></i>Account Security</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating position-relative">
+                        <input asp-for="Password" id="Password" type="password" class="form-control" placeholder=" " required>
+                        <label asp-for="Password">Password</label>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                        <button type="button" class="btn btn-sm btn-light position-absolute end-0 top-50 translate-middle-y me-2"
+                                onclick="togglePassword('Password', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating position-relative">
+                        <input asp-for="ConfirmPassword" id="ConfirmPassword" type="password" class="form-control" placeholder=" " required>
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                        <button type="button" class="btn btn-sm btn-light position-absolute end-0 top-50 translate-middle-y me-2"
+                                onclick="togglePassword('ConfirmPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Strength -->
+            <div class="progress mt-3" style="height: 6px;">
+                <div id="passwordStrength" class="progress-bar rounded-pill" role="progressbar"></div>
+            </div>
+            <small class="text-muted">Password must contain at least 8 characters with uppercase, lowercase, number and special character</small>
+
+            <!-- Terms -->
+            <div class="form-check mt-4">
+                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                <label class="form-check-label" for="agreeTerms">
+                    I agree to the <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
+                </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-gradient btn-lg text-white rounded-pill shadow">
+                    <i class="fas fa-user-plus me-2"></i> Register
+                </button>
+            </div>
+        </form>
+
+        <!-- Footer -->
+        <div class="text-center mt-4">
+            Already have an account? <a asp-action="Login" class="fw-bold text-primary text-decoration-none">Sign in here</a>
         </div>
     </div>
 </div>
@@ -230,5 +221,4 @@
                 <text>toastr.error('@TempData["error-notification"]');</text>
         }
     </script>
-  
 }
