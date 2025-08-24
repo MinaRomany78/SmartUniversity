@@ -57,7 +57,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
                     area = "Identity" }
                 ,Request.Scheme);
                await _emailSender.SendEmailAsync(user.Email,"Confirm your Email", $"<h1>Comfirm your Account by Chilking <a href='{link}'> Here</a></h1>");
-                return RedirectToAction("Index", "home", new { area = "Customer" });
+                return RedirectToAction("Index", "home", new { area = "Identity" });
             }
             foreach(var item in result.Errors)
             {
@@ -122,7 +122,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
                 if (roles.Contains($"{SD.ExternalStudent}"))
                     return RedirectToAction("index", "ExternalStudent", new { area = "Customer" });
 
-                return RedirectToAction("index", "Home", new { area = "Customer" });
+                return RedirectToAction("index", "Home", new { area = "identity" });
             }
 
             if (result.IsLockedOut)
@@ -150,7 +150,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
                 {
                     TempData["success-notification"] = "Email Confirmation Successfully!";
                 }
-                return RedirectToAction("Index", "Home", new { area = "customer" });
+                return RedirectToAction("Index", "Home", new { area = "Identity" });
             }
             return NotFound();
 
@@ -185,7 +185,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
 
             // Send msg
             TempData["success-notification"] = "Confirm Your Account Again!";
-            return RedirectToAction("index", "Home", new { area = "Customer" });
+            return RedirectToAction("index", "Home", new { area = "Identity" });
         }
         public IActionResult ForgetPassword()
         {
@@ -297,7 +297,7 @@ namespace SmartUniversity.Areas.Identity.Controllers
 
                 // Send msg
                 TempData["success-notification"] = "Reset Password Successfully";
-                return RedirectToAction("index", "Home", new { area = "Customer" });
+                return RedirectToAction("index", "Home", new { area = "Identity" });
             }
 
             return NotFound();
