@@ -83,16 +83,16 @@
                             </a>
                         </td>
                         <td>
-                            @if (doctor.ApplicationUser.LockoutEnabled)
+                            @if (doctor.ApplicationUser.LockoutEnd is not null && doctor.ApplicationUser.LockoutEnd > DateTime.Now)
                             {
-                                <a href="@Url.Action("ToggleBlock", "Dashboard", new { id = doctor.Id, area = "Admin" })"
+                                <a href="@Url.Action("ToggleBlock", "LockUnlock", new { id = doctor.ApplicationUser.Id, area = "Admin", returnController = ViewContext.RouteData.Values["controller"] })"
                                    class="btn btn-success btn-sm">
                                     <i class="bi bi-unlock"></i> Unblock
                                 </a>
                             }
                             else
                             {
-                                <a href="@Url.Action("ToggleBlock", "Dashboard", new { id = doctor.Id, area = "Admin" })"
+                                <a href="@Url.Action("ToggleBlock", "LockUnlock", new { id = doctor.ApplicationUser.Id, area = "Admin", returnController = ViewContext.RouteData.Values["controller"] })"
                                    class="btn btn-secondary btn-sm">
                                     <i class="bi bi-lock"></i> Block
                                 </a>
