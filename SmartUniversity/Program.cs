@@ -83,7 +83,7 @@ app.UseAuthorization();
 // Default route
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Identity}/{controller=Home}/{action=Index}/{id?}");
 
 // Initialize Database & Seed Data
 using (var scope = app.Services.CreateScope())

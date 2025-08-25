@@ -24,6 +24,12 @@ namespace Entities.ViewModel
         public string NationalId { get; set; } = string.Empty;
         
         public bool IsEmailConfirmed { get; set; } = false;
+        public int DepartmentId { get; set; }
+        public int TermId { get; set; }
+
+        public List<SelectListItem> DepartMentList { get; set; } = new();
+        public List<SelectListItem> TermList { get; set; } = new();
+
 
     }
 }
