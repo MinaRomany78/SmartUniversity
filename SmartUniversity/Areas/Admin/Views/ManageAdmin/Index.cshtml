@@ -1,8 +1,7 @@
-﻿@model IEnumerable<Assistant>
+﻿@model IEnumerable<ApplicationUser>
 @{
-    ViewData["Title"] = "Manage Assistants";
+    ViewData["Title"] = "Manage Admins";
 }
-
 
 <style>
     .dashboard-table {
@@ -42,19 +41,18 @@
         margin-bottom: 16px;
         max-width: 300px;
     }
-
 </style>
 
 <div class="mt-3">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <input id="assistantSearch" type="text" class="form-control search-box" placeholder="🔍 Search Assistants..." />
-        <a href="@Url.Action("Create", "Assistant", new { area = "Admin" })" class="btn btn-success shadow-sm">
-            <i class="bi bi-plus-circle me-1"></i> Add Assistant
+        <input id="adminSearch" type="text" class="form-control search-box" placeholder="🔍 Search admins..." />
+        <a href="@Url.Action("Create", "Admins", new { area = "Admin" })" class="btn btn-success shadow-sm">
+            <i class="bi bi-plus-circle me-1"></i> Add Admin
         </a>
     </div>
 
     <div class="table-responsive dashboard-table">
-        <table class="table align-middle text-center mb-0" id="AssistantTable">
+        <table class="table align-middle text-center mb-0" id="adminTable">
             <thead>
                 <tr>
                     <th>Full Name</th>
@@ -65,34 +63,34 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var assistant in Model)
+                @foreach (var admin in Model)
                 {
                     <tr>
-                        <td class="fw-bold">@assistant.ApplicationUser.FullName</td>
-                        <td>@assistant.ApplicationUser.UserName</td>
-                        <td>@assistant.ApplicationUser.Email</td>
+                        <td class="fw-bold">@admin.FullName</td>
+                        <td>@admin.UserName</td>
+                        <td>@admin.Email</td>
                         <td class="table-actions">
-                            <a href="@Url.Action("Edit", "Assistant", new { id = assistant.Id, area = "Admin" })"
+                            <a href="@Url.Action("Edit", "Admins", new { id = admin.Id, area = "Admin" })"
                                class="btn btn-warning btn-sm me-1" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <a href="#"
-                               data-delete-url="@Url.Action("Delete", "Assistant", new { id = assistant.Id, area = "Admin" })"
+                               data-delete-url="@Url.Action("Delete", "Admins", new { id = admin.Id, area = "Admin" })"
                                class="btn btn-danger btn-sm btn-delete" title="Delete">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
                         <td>
-                            @if (assistant.ApplicationUser.LockoutEnd is not null && assistant.ApplicationUser.LockoutEnd > DateTime.Now)
+                            @if (admin.LockoutEnd != null && admin.LockoutEnd > DateTime.Now)
                             {
-                                <a href="@Url.Action("ToggleBlock", "LockUnlock", new { id = assistant.ApplicationUser.Id, area = "Admin", returnController = ViewContext.RouteData.Values["controller"] })"
+                                <a href="@Url.Action("ToggleBlock", "Admins", new { id = admin.Id, area = "Admin" })"
                                    class="btn btn-success btn-sm">
                                     <i class="bi bi-unlock"></i> Unblock
                                 </a>
                             }
                             else
                             {
-                                <a href="@Url.Action("ToggleBlock", "LockUnlock", new { id = assistant.ApplicationUser.Id, area = "Admin", returnController = ViewContext.RouteData.Values["controller"] })"
+                                <a href="@Url.Action("ToggleBlock", "Admins", new { id = admin.Id, area = "Admin" })"
                                    class="btn btn-secondary btn-sm">
                                     <i class="bi bi-lock"></i> Block
                                 </a>
@@ -103,20 +101,6 @@
             </tbody>
         </table>
     </div>
-
-    @* Pagination *@
-    <nav aria-label="Assistants pagination" class="mt-4">
-        <ul class="pagination justify-content-center">
-            @for (int i = 1; i <= (int)ViewBag.totalPages; i++)
-            {
-                <li class="page-item @(i == (int)ViewBag.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", "Assistant", new { area = "Admin", page = i })">
-                        @i
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
 </div>
 
 @section Scripts {
@@ -126,28 +110,28 @@
             @* Success Message *@
             @if (TempData["success-notification"] != null)
             {
-                            <text>
-                                toastr.success('@TempData["success-notification"]');
-                            </text>
+                    <text>
+                        toastr.success('@TempData["success-notification"]');
+                    </text>
             }
 
             @* Error Message *@
             @if (TempData["error-notification"] != null)
             {
-                            <text>
-                                toastr.error('@TempData["error-notification"]');
-                            </text>
+                    <text>
+                        toastr.error('@TempData["error-notification"]');
+                    </text>
             }
         });
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Search filter
-            const searchInput = document.getElementById('assistantSearch');
+            const searchInput = document.getElementById('adminSearch');
             if (searchInput) {
                 searchInput.addEventListener('keyup', function () {
                     const searchText = this.value.toLowerCase();
-                    const rows = document.querySelectorAll('#AssistantTable tbody tr');
+                    const rows = document.querySelectorAll('#adminTable tbody tr');
                     rows.forEach(row => {
                         row.style.display = row.textContent.toLowerCase().includes(searchText) ? '' : 'none';
                     });
@@ -164,7 +148,7 @@
 
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    text: "This admin will be removed!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
@@ -179,3 +163,4 @@
         });
     </script>
 }
+
