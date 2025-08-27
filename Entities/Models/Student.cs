@@ -21,6 +21,5 @@ namespace Entities.Models
         public ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
         public ICollection<CommunityPost> CommunityPosts { get; } = new List<CommunityPost>();
         public ICollection<Comment> Comments { get; } = new List<Comment>();
-        public ICollection<SupportTicket> SupportTickets { get; } = new List<SupportTicket>();
     }
 }
