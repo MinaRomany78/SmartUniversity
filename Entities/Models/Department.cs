@@ -11,6 +11,7 @@ namespace Entities.Models
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public ICollection<UniversityCourse> Courses { get; set; } = new List<UniversityCourse>();
+        public ICollection<Student> Students { get; set; } = new List<Student>();
 
     }
 }

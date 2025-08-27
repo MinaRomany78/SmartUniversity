@@ -15,5 +15,6 @@ namespace Entities.Models
         public string Name => $"Year {Year} - Term {TermNumber}";
 
         public ICollection<UniversityCourse> Courses { get; set; } = new List<UniversityCourse>();
+        public ICollection<Student> Students { get; set; } = new List<Student>();
     }
 }

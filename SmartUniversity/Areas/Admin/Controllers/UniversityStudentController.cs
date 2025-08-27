@@ -4,6 +4,7 @@ using Entities.Models;
 using Entities.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -27,7 +28,9 @@ namespace SmartUniversity.Areas.Admin.Controllers
         {
             var students = await _unitOfWork.Students.GetAsync(include: new Expression<Func<Student, object>>[]
             {
-             e => e.ApplicationUser
+             e => e.ApplicationUser,
+             e=>e.Department,
+             e=>e.Term,
             });
 
            if (students is null)
@@ -52,11 +55,18 @@ namespace SmartUniversity.Areas.Admin.Controllers
 
         
         [HttpGet]
-        public IActionResult Create(string NationalId)
+        public async Task<IActionResult> Create(string NationalId)
         {
             var vm = new AdminUniversityStudentVM
             {
-                NationalId = NationalId 
+                NationalId = NationalId,
+                DepartMentList = (await _unitOfWork.Departments.GetAsync())
+                    .Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Name })
+                    .ToList(),
+
+                TermList = (await _unitOfWork.Terms.GetAsync())
+                    .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name })
+                    .ToList()
             };
             return View(vm);
         }
@@ -64,7 +74,17 @@ namespace SmartUniversity.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AdminUniversityStudentVM vm)
         {
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid)
+            {
+                vm.DepartMentList = (await _unitOfWork.Departments.GetAsync())
+                 .Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Name })
+                 .ToList();
+
+                vm.TermList = (await _unitOfWork.Terms.GetAsync())
+                    .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name })
+                    .ToList();
+                return View(vm);
+            }
 
             var user = new ApplicationUser
             {
@@ -93,6 +113,8 @@ namespace SmartUniversity.Areas.Admin.Controllers
                 ApplicationUserId = user.Id,
                 NationalID = vm.NationalId,
                 IsUniversityStudent=true,
+                DepartmentID = vm.DepartmentId,
+                TermId = vm.TermId
 
             };
             await _userManager.AddToRoleAsync(user, SD.UniversityStudent);
@@ -127,7 +149,14 @@ namespace SmartUniversity.Areas.Admin.Controllers
                 FirstName = student.ApplicationUser.FirstName,
                 LastName = student.ApplicationUser.LastName,
                 Email = student!.ApplicationUser.Email??"",
-                IsEmailConfirmed = student.ApplicationUser.EmailConfirmed
+                IsEmailConfirmed = student.ApplicationUser.EmailConfirmed,
+                DepartMentList = (await _unitOfWork.Departments.GetAsync())
+                .Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Name })
+                .ToList(),
+
+                TermList = (await _unitOfWork.Terms.GetAsync())
+                .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name })
+                 .ToList()
             };
 
             return View(vm);
@@ -136,11 +165,25 @@ namespace SmartUniversity.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(AdminUniversityStudentVM vm)
         {
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid)
+            {
+                vm.DepartMentList = (await _unitOfWork.Departments.GetAsync())
+                 .Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Name })
+                 .ToList();
+
+                vm.TermList = (await _unitOfWork.Terms.GetAsync())
+                    .Select(t => new SelectListItem { Value = t.Id.ToString(), Text = t.Name })
+                    .ToList();
+                return View(vm);
+            }
 
             var student = await _unitOfWork.Students.GetOneAsync(
                 s => s.Id == vm.Id,
-                include: new Expression<Func<Student, object>>[] { e => e.ApplicationUser }
+                include: new Expression<Func<Student, object>>[] {
+                    e => e.ApplicationUser ,
+                    e=>e.Term,
+                    e=>e.Department,
+                }
             );
 
             if (student == null) return NotFound();
@@ -158,6 +201,8 @@ namespace SmartUniversity.Areas.Admin.Controllers
 
             // Update Student
             student.NationalID = vm.NationalId;
+            student.TermId= vm.TermId;
+            student.DepartmentID= vm.DepartmentId;  
 
           await _unitOfWork.Students.UpdateAsync(student);
             await _unitOfWork.Students.CommitAsync();
