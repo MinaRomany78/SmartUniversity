@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250826223247_ModifingOnSupportTicketModel")]
+    partial class ModifingOnSupportTicketModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -638,18 +641,15 @@ namespace DataAccess.Migrations
                     b.Property<DateTime?>("ResolvedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SenderEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenderName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("SupportTickets");
                 });
@@ -1830,6 +1830,17 @@ namespace DataAccess.Migrations
                     b.Navigation("UniversityCourse");
                 });
 
+            modelBuilder.Entity("Entities.Models.SupportTicket", b =>
+                {
+                    b.HasOne("Entities.Models.Student", "Student")
+                        .WithMany("SupportTickets")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("Entities.Models.TaskSubmission", b =>
                 {
                     b.HasOne("Entities.Models.Student", "Student")
@@ -1987,6 +1998,8 @@ namespace DataAccess.Migrations
                     b.Navigation("Feedbacks");
 
                     b.Navigation("OptionalCourseEnrollments");
+
+                    b.Navigation("SupportTickets");
 
                     b.Navigation("TaskSubmissions");
                 });
