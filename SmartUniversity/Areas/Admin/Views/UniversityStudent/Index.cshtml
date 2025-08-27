@@ -59,7 +59,8 @@
                     <th>UserName</th>
                     <th>Email</th>
                     <th>National ID</th>
-                    <th></th>
+                    <th>Department</th>
+                    <th>Term</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -71,6 +72,8 @@
                         <td>@student.ApplicationUser.UserName</td>
                         <td>@student.ApplicationUser.Email</td>
                         <td>@student.NationalID</td>
+                        <td>@student.Department?.Name</td>
+                        <td>@student.Term?.Name</td>
                         <td class="table-actions">
                             <a href="@Url.Action("Edit", "UniversityStudent", new { id = student.Id, area = "Admin" })"
                                class="btn btn-warning btn-sm me-1" title="Edit">

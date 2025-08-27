@@ -24,7 +24,7 @@ namespace SmartUniversity.Areas.Customer.Controllers
                     e => e.Department,
                     e => e.Term
                 });
-            courses=courses.Skip(0).Take(10).ToList();
+            courses=courses.Skip(0).Take(4).ToList();
             return View(courses);
         }
     }
