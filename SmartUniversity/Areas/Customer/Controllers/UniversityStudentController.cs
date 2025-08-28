@@ -1,4 +1,4 @@
-﻿using DataAccess.Migrations;
+using DataAccess.Migrations;
 using DataAccess.Repositories.IRepositories;
 using Entities.Models;
 using Entities.ViewModel;
