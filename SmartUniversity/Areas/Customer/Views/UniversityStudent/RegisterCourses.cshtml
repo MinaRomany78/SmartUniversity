@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.ViewModel.RegisterCoursesVM>
+@model IEnumerable<Entities.ViewModel.RegisterCoursesVM>
 
 @{
     ViewData["Title"] = "Register Courses";
@@ -29,11 +29,19 @@
                             {
                                 <tr class="course-row">
                                     <td class="text-center">
+                                        
                                         <input type="checkbox" class="form-check-input shadow-sm course-checkbox"
                                                data-credits="@course.Credits"
                                                name="SelectedCourses"
                                                value="@course.CourseId"
                                                @(course.IsSelected ? "checked disabled" : "") />
+
+                                        @if (course.IsSelected)
+                                        {
+                                            <!-- Hidden input to submit already registered course -->
+                                            <input type="hidden" name="SelectedCourses" value="@course.CourseId" />
+                                        }
+
 
                                     </td>
                                     <td class="text-start fw-semibold">
@@ -173,7 +181,7 @@
 
 @section Scripts {
     <script>
-        $(function () {
+               $(function () {
             // Toastr setup
             toastr.options = {
                 "closeButton": true,
@@ -185,17 +193,23 @@
             // Success / Error messages
             @if (TempData["success-notification"] != null)
             {
-                        <text>toastr.success('@TempData["success-notification"]');</text>
+                    <text>toastr.success('@TempData["success-notification"]');</text>
             }
             @if (TempData["error-notification"] != null)
             {
-                        <text>toastr.error('@TempData["error-notification"]');</text>
+                    <text>toastr.error('@TempData["error-notification"]');</text>
             }
+
+            // ⬇️ نبدأ بعدد الساعات المسجلة قبل كده
+            let totalCredits = @ViewBag.AlreadyRegisteredCredits;
+            $("#selectedCredits").text(totalCredits);
 
             // Auto calculate selected credits
             $(".course-checkbox").on("change", function () {
-                let totalCredits = 0;
-                $(".course-checkbox:checked").each(function () {
+                // نبدأ بعدد الساعات المسجلة أصلاً
+                totalCredits = @ViewBag.AlreadyRegisteredCredits;
+
+                $(".course-checkbox:checked:not(:disabled)").each(function () {
                     totalCredits += parseInt($(this).data("credits"));
                 });
 
@@ -209,5 +223,10 @@
                 }
             });
         });
+
+    </script>
+}
+
+
     </script>
 }

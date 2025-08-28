@@ -18,7 +18,9 @@ namespace SmartUniversity.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
 
+            
             var totalStudents = await _unitOfWork.Students.GetAsync();
+            
             ViewBag.totalStudents = totalStudents.Count();
 
             var totalDoctors = await _unitOfWork.Doctors.GetAsync();
@@ -42,6 +44,7 @@ namespace SmartUniversity.Areas.Admin.Controllers
             .ToList();
 
             ViewBag.toptickets = topTickets;
+            
 
             return View();
         }
