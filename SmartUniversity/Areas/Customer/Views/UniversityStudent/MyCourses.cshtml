@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.ViewModel.RegisterCoursesVM>
+@model IEnumerable<Entities.ViewModel.RegisterCoursesVM>
 
 @{
     ViewData["Title"] = "My Registered Courses";
@@ -46,12 +46,24 @@
                         Total: <span class="text-dark">@totalCredits Credits</span> =
                         <span class="text-success">@totalAmount EGP</span>
                     </h4>
-                    <form asp-action="Pay" method="post" class="d-inline-block">
-                        <button type="submit" class="btn btn-lg btn-success px-5 rounded-pill shadow-lg">
-                            💳 Pay @totalAmount EGP
-                        </button>
-                    </form>
+
+                    @if (ViewData["error-notification"] != null)
+                    {
+                        <div class="alert alert-danger fw-bold rounded-3 shadow-sm mb-3">
+                            @ViewData["error-notification"]
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-action="Pay" method="post" class="d-inline-block">
+
+                            <button type="submit" class="btn btn-lg btn-success px-5 rounded-pill shadow-lg">
+                                💳 Pay @totalAmount EGP
+                            </button>
+                        </form>
+                    }
                 </div>
+
             }
             else
             {
