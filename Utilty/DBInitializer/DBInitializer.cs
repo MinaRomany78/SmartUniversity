@@ -36,6 +36,7 @@ namespace Utility.DBInitializer
                 _roleManager.CreateAsync(new IdentityRole(SD.SuperAdmin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Assistant)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Instructor)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Doctor)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.ExternalStudent)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.UniversityStudent)).GetAwaiter().GetResult();

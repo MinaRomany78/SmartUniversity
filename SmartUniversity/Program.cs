@@ -9,6 +9,7 @@ using Stripe;
 using Utility;
 using Utility.DBInitializer;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MVC Controllers with Views
@@ -43,8 +44,6 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommunityPostRepository, CommunityPostRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<ITermRepository, TermRepository>();
-//builder.Services.AddScoped<ICourseAssignmentRepository, CourseAssignmentRepository>();
-//builder.Services.AddScoped<ICourseAssistantRepository, CourseAssistantRepository>();
 builder.Services.AddScoped<IAssistantCourseRepository, AssistantCourseRepository>(); 
 builder.Services.AddScoped<IDoctorAssistantRepository, DoctorAssistantRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
@@ -52,13 +51,14 @@ builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<IOptionalCourseRepository, OptionalCourseRepository>();
-builder.Services.AddScoped<IOptionalCourseEnrollmentRepository, OptionalCourseEnrollmentRepository>();
 builder.Services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ISubjectTaskRepository, SubjectTaskRepository>();
 builder.Services.AddScoped<ISupportTicketRepository, SupportTicketRepository>();
 builder.Services.AddScoped<ITaskSubmissionRepository, TaskSubmissionRepository>();
 builder.Services.AddScoped<IUniversityCourseRepository, UniversityCourseRepository>();
+builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+builder.Services.AddScoped<IUserOptionalCourseRepository, UserOptionalCourseRepository>();
 
 // UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -94,5 +94,6 @@ using (var scope = app.Services.CreateScope())
     var dbInitializer = scope.ServiceProvider.GetRequiredService<IDBInitializer>();
     dbInitializer.Initialize();
 }
+
 
 app.Run();

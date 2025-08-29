@@ -21,5 +21,6 @@ namespace Entities.Models
         public Student? Student { get; set; }
         public Doctor? Doctor { get; set; }
         public Assistant? Assistant { get; set; }
+        public Instructor? Instructor { get; set; }
     }
 }
