@@ -9,8 +9,6 @@ namespace DataAccess.Repositories.IRepositories
         IAssistantRepository Assistants { get; }
         ICommentRepository Comments { get; }
         ICommunityPostRepository CommunityPosts { get; }
-        //ICourseAssignmentRepository CourseAssignments { get; }
-        //ICourseAssistantRepository CourseAssistants { get; }
         IDoctorAssistantRepository DoctorAssistants { get; }
         IAssistantCourseRepository AssistantCourses { get; }
         IDoctorRepository Doctors { get; }
@@ -18,7 +16,7 @@ namespace DataAccess.Repositories.IRepositories
         IFeedbackRepository Feedbacks { get; }
         IMaterialRepository Materials { get; }
         IOptionalCourseRepository OptionalCourses { get; }
-        IOptionalCourseEnrollmentRepository OptionalCourseEnrollments { get; }
+        IUserOptionalCourseRepository UserOptionalCourses { get; }
         IPromoCodeRepository PromoCodes { get; }
         IStudentRepository Students { get; }
         ISubjectTaskRepository SubjectTasks { get; }
@@ -28,6 +26,7 @@ namespace DataAccess.Repositories.IRepositories
         IApplicationUserOtpRepository ApplicationUserOtps {  get; }
         IDepartmentRepository Departments {  get; }
         ITermRepository Terms { get; }
+        IInstructorRepository Instructors { get; }
 
         Task<int> CompleteAsync();
     }

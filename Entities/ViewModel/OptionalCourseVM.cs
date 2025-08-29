@@ -1,27 +1,28 @@
-﻿using System;
+﻿using Entities.Models;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.ViewModel
 {
-    public class OptionalCourse
+    public class OptionalCourseVM
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]
         public string Description { get; set; } = string.Empty;
         [Required]
-        public string MainImg { get; set; } = string.Empty;
-        [Required]
         public decimal Price { get; set; }
         public bool IsAvailableForUniversityStudents { get; set; }
         public string? PromoCode { get; set; }
-        public PromoCode? PromoCodeEntity { get; set; }
+        [Required]
         public int InstructorId { get; set; }
-        public Instructor Instructor { get; set; } = null!;
+        public IFormFile? MainImg { get; set; }
+        public List<Instructor> Instructors { get; set; } = new List<Instructor>();
+        public List<PromoCode> PromoCodes { get; set; } = new List<PromoCode>();
     }
 }

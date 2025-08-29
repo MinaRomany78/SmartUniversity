@@ -13,8 +13,6 @@ namespace DataAccess.Repositories
         public IAssistantRepository Assistants { get; }
         public ICommentRepository Comments { get; }
         public ICommunityPostRepository CommunityPosts { get; }
-        //public ICourseAssignmentRepository CourseAssignments { get; }
-        //public ICourseAssistantRepository CourseAssistants { get; }
         public IAssistantCourseRepository AssistantCourses { get; }
         public IDoctorAssistantRepository DoctorAssistants { get; }
         public IDoctorRepository Doctors { get; }
@@ -22,7 +20,7 @@ namespace DataAccess.Repositories
         public IFeedbackRepository Feedbacks { get; }
         public IMaterialRepository Materials { get; }
         public IOptionalCourseRepository OptionalCourses { get; }
-        public IOptionalCourseEnrollmentRepository OptionalCourseEnrollments { get; }
+        public IUserOptionalCourseRepository UserOptionalCourses { get; }
         public IPromoCodeRepository PromoCodes { get; }
         public IStudentRepository Students { get; }
         public ISubjectTaskRepository SubjectTasks { get; }
@@ -32,6 +30,7 @@ namespace DataAccess.Repositories
         public IApplicationUserOtpRepository ApplicationUserOtps {  get; }
         public IDepartmentRepository Departments {  get; }
         public ITermRepository Terms { get; }
+        public IInstructorRepository Instructors { get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
@@ -42,8 +41,6 @@ namespace DataAccess.Repositories
             IAssistantRepository assistants,
             ICommentRepository comments,
             ICommunityPostRepository communityPosts,
-            //ICourseAssignmentRepository courseAssignments,
-            //ICourseAssistantRepository courseAssistants,
             IAssistantCourseRepository assistantCourses,
             IDoctorAssistantRepository doctorAssistants,
             IDoctorRepository doctors,
@@ -51,14 +48,15 @@ namespace DataAccess.Repositories
             IFeedbackRepository feedbacks,
             IMaterialRepository materials,
             IOptionalCourseRepository optionalCourses,
-            IOptionalCourseEnrollmentRepository optionalCourseEnrollments,
+            IUserOptionalCourseRepository userOptionalCourses,
             IPromoCodeRepository promoCodes,
             IStudentRepository students,
             ISubjectTaskRepository subjectTasks,
             ISupportTicketRepository supportTickets,
             ITaskSubmissionRepository taskSubmissions,
             IUniversityCourseRepository universityCourses,
-            ITermRepository terms 
+            ITermRepository terms,
+            IInstructorRepository instructors
             )
         {
             _context = context;
@@ -67,8 +65,6 @@ namespace DataAccess.Repositories
             Assistants = assistants;
             Comments = comments;
             CommunityPosts = communityPosts;
-            //CourseAssignments = courseAssignments;
-            //CourseAssistants = courseAssistants;
             AssistantCourses = assistantCourses;
             DoctorAssistants = doctorAssistants;
             Doctors = doctors;
@@ -76,7 +72,6 @@ namespace DataAccess.Repositories
             Feedbacks = feedbacks;
             Materials = materials;
             OptionalCourses = optionalCourses;
-            OptionalCourseEnrollments = optionalCourseEnrollments;
             PromoCodes = promoCodes;
             Students = students;
             SubjectTasks = subjectTasks;
@@ -86,6 +81,7 @@ namespace DataAccess.Repositories
             ApplicationUserOtps = applicationUserOtps;
             Departments = departments;
             Terms = terms;
+            Instructors = instructors;
         }
 
         public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();

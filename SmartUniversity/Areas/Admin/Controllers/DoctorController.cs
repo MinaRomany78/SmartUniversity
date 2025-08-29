@@ -61,8 +61,7 @@ namespace SmartUniversity.Areas.Admin.Controllers
                     Text = e.ApplicationUser.FullName
                 }).ToList(),
 
-                CoursesList = (await _unitOfWork.UniversityCourses.GetAsync(
-                    include: new Expression<Func<UniversityCourse, object>>[] {}))
+                CoursesList = (await _unitOfWork.UniversityCourses.GetAsync())
                 .Select(e => new SelectListItem
                 {
                     Value = e.Id.ToString(),

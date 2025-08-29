@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250827235139_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +148,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-100",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c95f9775-b4fc-4aa0-a1ea-d4db9a763fe9",
+                            ConcurrencyStamp = "f66bfd5c-e8d4-43be-95fa-101ec9ed41e9",
                             Email = "ahmed@test.com",
                             EmailConfirmed = true,
                             FirstName = "Ahmed",
@@ -156,7 +159,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "AHMED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4f06ca7e-40cf-4c09-b24f-51601e2e6bfa",
+                            SecurityStamp = "f6fe61d4-a282-4a26-a162-8ee520cfa31a",
                             TwoFactorEnabled = false,
                             UserName = "ahmed@test.com"
                         },
@@ -164,7 +167,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-101",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d60a6e56-8241-406b-96c4-874c62873f68",
+                            ConcurrencyStamp = "d429803b-27c6-4baa-9119-d5a5c4090680",
                             Email = "mona@test.com",
                             EmailConfirmed = true,
                             FirstName = "Mona",
@@ -175,7 +178,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "MONA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d7cc102-8d77-42a0-b25b-f83bdd22cb53",
+                            SecurityStamp = "2b3c053a-efba-43e4-9efb-d7e67424958d",
                             TwoFactorEnabled = false,
                             UserName = "mona@test.com"
                         },
@@ -183,7 +186,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-102",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e69a5b19-9658-4cae-bf9c-ca7d8654d602",
+                            ConcurrencyStamp = "54ba170e-aa1a-496d-ab41-a85bc853df70",
                             Email = "hossam@test.com",
                             EmailConfirmed = true,
                             FirstName = "Hossam",
@@ -194,7 +197,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "HOSSAM@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc28a22e-872d-4ae4-a708-58aa304da100",
+                            SecurityStamp = "246cc983-0586-41ce-97b7-2a74c5d83cbb",
                             TwoFactorEnabled = false,
                             UserName = "hossam@test.com"
                         },
@@ -202,7 +205,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-103",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "145d3b44-df10-402e-a6ca-340e211904da",
+                            ConcurrencyStamp = "e69371f6-d527-4a82-b11c-d145b56264ae",
                             Email = "sara@test.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
@@ -213,7 +216,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "SARA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1897aa75-6f5d-4931-89cc-71a2157ebdb0",
+                            SecurityStamp = "6ab0e434-75cd-4b4d-8e7e-45e3399969a8",
                             TwoFactorEnabled = false,
                             UserName = "sara@test.com"
                         },
@@ -221,7 +224,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-104",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0474a13d-284a-46cd-8dc9-e6df4b22d093",
+                            ConcurrencyStamp = "795f6887-d2da-40c9-8240-f13f7632e598",
                             Email = "khaled@test.com",
                             EmailConfirmed = true,
                             FirstName = "Khaled",
@@ -232,7 +235,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "KHALED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96b2127f-3bf3-47b3-a2c5-fddf22dc0862",
+                            SecurityStamp = "e3cd6fa4-23f5-4719-96ca-17925715b071",
                             TwoFactorEnabled = false,
                             UserName = "khaled@test.com"
                         });
@@ -653,20 +656,19 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 300,
+                            Id = 200,
                             Description = "Intro to C# and .NET",
-                            InstructorId = 101,
+                            InstructorId = 100,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "csharp.png",
                             Name = "C# Basics",
-                            Price = 800m,
-                            PromoCode = "PROMO10"
+                            Price = 800m
                         },
                         new
                         {
-                            Id = 301,
+                            Id = 201,
                             Description = "Learn EF Core ORM",
-                            InstructorId = 101,
+                            InstructorId = 100,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "efcore.png",
                             Name = "Entity Framework Core",
@@ -675,91 +677,84 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = 302,
+                            Id = 202,
                             Description = "Frontend development with React",
-                            InstructorId = 102,
+                            InstructorId = 101,
                             IsAvailableForUniversityStudents = false,
                             MainImg = "react.png",
                             Name = "React Fundamentals",
-                            Price = 1500m,
-                            PromoCode = "PROMO10"
+                            Price = 1500m
                         },
                         new
                         {
-                            Id = 303,
+                            Id = 203,
                             Description = "Learn Angular fast",
-                            InstructorId = 102,
+                            InstructorId = 101,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "angular.png",
                             Name = "Angular Crash Course",
-                            Price = 1400m,
-                            PromoCode = "PROMO10"
+                            Price = 1400m
                         },
                         new
                         {
-                            Id = 304,
+                            Id = 204,
                             Description = "Pandas, NumPy, and basics of ML",
-                            InstructorId = 103,
+                            InstructorId = 102,
                             IsAvailableForUniversityStudents = false,
                             MainImg = "python.png",
                             Name = "Python for Data Science",
                             Price = 1600m,
-                            PromoCode = "PROMO10"
+                            PromoCode = "STUDENT20"
                         },
                         new
                         {
-                            Id = 305,
+                            Id = 205,
                             Description = "Intro to ML concepts",
-                            InstructorId = 103,
+                            InstructorId = 102,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "ml.png",
                             Name = "Machine Learning 101",
-                            Price = 2000m,
-                            PromoCode = "PROMO10"
+                            Price = 2000m
                         },
                         new
                         {
-                            Id = 306,
+                            Id = 206,
                             Description = "Wireframes & Prototyping",
-                            InstructorId = 104,
+                            InstructorId = 103,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "uiux.png",
                             Name = "UI/UX Advanced",
-                            Price = 1300m,
-                            PromoCode = "PROMO10"
+                            Price = 1300m
                         },
                         new
                         {
-                            Id = 307,
+                            Id = 207,
                             Description = "Cross-platform apps",
-                            InstructorId = 104,
+                            InstructorId = 103,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "flutter.png",
                             Name = "Mobile Development with Flutter",
-                            Price = 1800m,
-                            PromoCode = "PROMO10"
+                            Price = 1800m
                         },
                         new
                         {
-                            Id = 308,
+                            Id = 208,
                             Description = "Security principles and practices",
-                            InstructorId = 100,
+                            InstructorId = 104,
                             IsAvailableForUniversityStudents = false,
                             MainImg = "cyber.png",
                             Name = "Cybersecurity Basics",
-                            Price = 2200m,
-                            PromoCode = "PROMO10"
+                            Price = 2200m
                         },
                         new
                         {
-                            Id = 309,
+                            Id = 209,
                             Description = "Azure fundamentals",
-                            InstructorId = 100,
+                            InstructorId = 104,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "azure.png",
                             Name = "Cloud with Azure",
-                            Price = 2100m,
-                            PromoCode = "PROMO10"
+                            Price = 2100m
                         });
                 });
 

@@ -18,14 +18,13 @@ namespace SmartUniversity.Areas.Customer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _unitOfWork.UniversityCourses.GetAsync(
-                include: new Expression<Func<UniversityCourse, object>>[]
-                {
-                    e => e.Department,
-                    e => e.Term
-                });
-            courses=courses.Skip(0).Take(4).ToList();
-            return View(courses);
+            var Courses = await _unitOfWork.OptionalCourses.GetAsync(include : new Expression<Func<OptionalCourse, object>>[]
+            {
+                e => e.Instructor,
+                e => e.Instructor.ApplicationUser
+            });
+
+            return View(Courses);
         }
     }
 }

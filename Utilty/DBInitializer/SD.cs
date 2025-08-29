@@ -11,6 +11,7 @@ namespace Utility.DBInitializer
         public const string SuperAdmin = "SuperAdmin";
         public const string Admin = "Admin";
         public const string Assistant = "Assistant";
+        public const string Instructor = "Instructor";
         public const string Doctor = "Doctor";
         public const string ExternalStudent = "ExternalStudent";
         public const string UniversityStudent = "UniversityStudent";

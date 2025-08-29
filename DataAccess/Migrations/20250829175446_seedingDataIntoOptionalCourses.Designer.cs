@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250829175446_seedingDataIntoOptionalCourses")]
+    partial class seedingDataIntoOptionalCourses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +148,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-100",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c95f9775-b4fc-4aa0-a1ea-d4db9a763fe9",
+                            ConcurrencyStamp = "30407b6d-893f-4865-a722-763560c7da1e",
                             Email = "ahmed@test.com",
                             EmailConfirmed = true,
                             FirstName = "Ahmed",
@@ -156,7 +159,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "AHMED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4f06ca7e-40cf-4c09-b24f-51601e2e6bfa",
+                            SecurityStamp = "8e7321f5-8bf6-426b-b385-e47801bde458",
                             TwoFactorEnabled = false,
                             UserName = "ahmed@test.com"
                         },
@@ -164,7 +167,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-101",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d60a6e56-8241-406b-96c4-874c62873f68",
+                            ConcurrencyStamp = "21f6bdd9-12fa-4496-bdcb-abe8d509e2f4",
                             Email = "mona@test.com",
                             EmailConfirmed = true,
                             FirstName = "Mona",
@@ -175,7 +178,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "MONA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d7cc102-8d77-42a0-b25b-f83bdd22cb53",
+                            SecurityStamp = "c8845c4d-ddd9-4055-b207-d2d5550bfa7a",
                             TwoFactorEnabled = false,
                             UserName = "mona@test.com"
                         },
@@ -183,7 +186,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-102",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e69a5b19-9658-4cae-bf9c-ca7d8654d602",
+                            ConcurrencyStamp = "4dd81b2f-5982-4921-8cf3-1ac560bb0f33",
                             Email = "hossam@test.com",
                             EmailConfirmed = true,
                             FirstName = "Hossam",
@@ -194,7 +197,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "HOSSAM@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc28a22e-872d-4ae4-a708-58aa304da100",
+                            SecurityStamp = "04b17daa-9c21-4deb-9d32-49f98bc519f4",
                             TwoFactorEnabled = false,
                             UserName = "hossam@test.com"
                         },
@@ -202,7 +205,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-103",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "145d3b44-df10-402e-a6ca-340e211904da",
+                            ConcurrencyStamp = "aa605be7-ecb6-4267-8d98-3f83ea6337e7",
                             Email = "sara@test.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
@@ -213,7 +216,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "SARA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1897aa75-6f5d-4931-89cc-71a2157ebdb0",
+                            SecurityStamp = "e22276fb-a4b4-4142-b0b8-0892655e91b6",
                             TwoFactorEnabled = false,
                             UserName = "sara@test.com"
                         },
@@ -221,7 +224,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-104",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0474a13d-284a-46cd-8dc9-e6df4b22d093",
+                            ConcurrencyStamp = "55293046-6096-4972-a5fb-6ed3d2238d99",
                             Email = "khaled@test.com",
                             EmailConfirmed = true,
                             FirstName = "Khaled",
@@ -232,7 +235,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "KHALED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96b2127f-3bf3-47b3-a2c5-fddf22dc0862",
+                            SecurityStamp = "88ddaf1e-e677-48a4-bce7-f68543e39630",
                             TwoFactorEnabled = false,
                             UserName = "khaled@test.com"
                         });
@@ -655,7 +658,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 300,
                             Description = "Intro to C# and .NET",
-                            InstructorId = 101,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "csharp.png",
                             Name = "C# Basics",
@@ -666,7 +669,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 301,
                             Description = "Learn EF Core ORM",
-                            InstructorId = 101,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "efcore.png",
                             Name = "Entity Framework Core",
@@ -677,7 +680,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 302,
                             Description = "Frontend development with React",
-                            InstructorId = 102,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = false,
                             MainImg = "react.png",
                             Name = "React Fundamentals",
@@ -688,7 +691,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 303,
                             Description = "Learn Angular fast",
-                            InstructorId = 102,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "angular.png",
                             Name = "Angular Crash Course",
@@ -699,7 +702,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 304,
                             Description = "Pandas, NumPy, and basics of ML",
-                            InstructorId = 103,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = false,
                             MainImg = "python.png",
                             Name = "Python for Data Science",
@@ -710,7 +713,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 305,
                             Description = "Intro to ML concepts",
-                            InstructorId = 103,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "ml.png",
                             Name = "Machine Learning 101",
@@ -721,7 +724,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 306,
                             Description = "Wireframes & Prototyping",
-                            InstructorId = 104,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "uiux.png",
                             Name = "UI/UX Advanced",
@@ -732,7 +735,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 307,
                             Description = "Cross-platform apps",
-                            InstructorId = 104,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "flutter.png",
                             Name = "Mobile Development with Flutter",
@@ -743,7 +746,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 308,
                             Description = "Security principles and practices",
-                            InstructorId = 100,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = false,
                             MainImg = "cyber.png",
                             Name = "Cybersecurity Basics",
@@ -754,7 +757,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 309,
                             Description = "Azure fundamentals",
-                            InstructorId = 100,
+                            InstructorId = 105,
                             IsAvailableForUniversityStudents = true,
                             MainImg = "azure.png",
                             Name = "Cloud with Azure",

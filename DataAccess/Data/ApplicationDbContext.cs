@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,13 @@ namespace DataAccess.Data
         public DbSet<ApplicationUserOtp> ApplicationUserOtps { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Assistant> Assistants { get; set; }
         public DbSet<PromoCode> PromoCodes { get; set; }
         public DbSet<UniversityCourse> UniversityCourses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<OptionalCourse> OptionalCourses { get; set; }
-        public DbSet<OptionalCourseEnrollment> OptionalCourseEnrollments { get; set; }
-        //public DbSet<CourseAssignment> CourseAssignments { get; set; }
-        //public DbSet<CourseAssistant> CourseAssistants { get; set; }
+        public DbSet<UserOptionalCourse> UserOptionalCourses { get; set; }
         public DbSet<AssistantCourse> AssistantCourses { get; set; }
         public DbSet<DoctorAssistant> DoctorAssistants { get; set; }
         public DbSet<Material> Materials { get; set; }
@@ -66,13 +66,6 @@ namespace DataAccess.Data
                 .HasForeignKey<Assistant>(a => a.ApplicationUserId)
                 .OnDelete(DeleteBehavior.Cascade); // Cascade على المستخدم
 
-            // Assistant ↔ Doctor (many-to-1) - منع الكاسكيد لكسر المسار
-            //builder.Entity<Assistant>()
-            //    .HasOne(a => a.Doctor)
-            //    .WithMany(d => d.Assistants)
-            //    .HasForeignKey(a => a.DoctorID)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
             // Student ↔ PromoCode (many-to-1)
             builder.Entity<Student>()
                 .HasOne(s => s.PromoCodeEntity)
@@ -85,13 +78,6 @@ namespace DataAccess.Data
                 .HasOne(o => o.PromoCodeEntity)
                 .WithMany(p => p.OptionalCourses)
                 .HasForeignKey(o => o.PromoCode)
-                .IsRequired(false);
-
-            // OptionalCourseEnrollment ↔ AppliedPromoCode (many-to-1)
-            builder.Entity<OptionalCourseEnrollment>()
-                .HasOne(e => e.AppliedPromoCodeEntity)
-                .WithMany()
-                .HasForeignKey(e => e.AppliedPromoCode)
                 .IsRequired(false);
 
             // Comment author (Student or Assistant) - no cascade
@@ -251,7 +237,49 @@ namespace DataAccess.Data
  
             );
 
+
+            // --- AspNetUsers (Fake data) ---
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser { Id = "inst-user-100", UserName = "ahmed@test.com", NormalizedUserName = "AHMED@TEST.COM", Email = "ahmed@test.com", NormalizedEmail = "AHMED@TEST.COM", EmailConfirmed = true, PasswordHash = "FAKE_HASH", FirstName = "Ahmed", LastName = "Kamal", FullName = "Ahmed Kamal" },
+                new ApplicationUser { Id = "inst-user-101", UserName = "mona@test.com", NormalizedUserName = "MONA@TEST.COM", Email = "mona@test.com", NormalizedEmail = "MONA@TEST.COM", EmailConfirmed = true, PasswordHash = "FAKE_HASH", FirstName = "Mona", LastName = "Ali", FullName = "Mona Ali" },
+                new ApplicationUser { Id = "inst-user-102", UserName = "hossam@test.com", NormalizedUserName = "HOSSAM@TEST.COM", Email = "hossam@test.com", NormalizedEmail = "HOSSAM@TEST.COM", EmailConfirmed = true, PasswordHash = "FAKE_HASH", FirstName = "Hossam", LastName = "Yehia", FullName = "Hossam Yehia" },
+                new ApplicationUser { Id = "inst-user-103", UserName = "sara@test.com", NormalizedUserName = "SARA@TEST.COM", Email = "sara@test.com", NormalizedEmail = "SARA@TEST.COM", EmailConfirmed = true, PasswordHash = "FAKE_HASH", FirstName = "Sara", LastName = "Ibrahim", FullName = "Sara Ibrahim" },
+                new ApplicationUser { Id = "inst-user-104", UserName = "khaled@test.com", NormalizedUserName = "KHALED@TEST.COM", Email = "khaled@test.com", NormalizedEmail = "KHALED@TEST.COM", EmailConfirmed = true, PasswordHash = "FAKE_HASH", FirstName = "Khaled", LastName = "Mostafa", FullName = "Khaled Mostafa" }
+            );
+
+            // --- Instructors ---
+            builder.Entity<Instructor>().HasData(
+                new Instructor { Id = 100, ApplicationUserId = "inst-user-100" },
+                new Instructor { Id = 101, ApplicationUserId = "inst-user-101" },
+                new Instructor { Id = 102, ApplicationUserId = "inst-user-102" },
+                new Instructor { Id = 103, ApplicationUserId = "inst-user-103" },
+                new Instructor { Id = 104, ApplicationUserId = "inst-user-104" }
+            );
+
+            // --- PromoCodes ---
+            builder.Entity<PromoCode>().HasData(
+                new PromoCode { Code = "PROMO10", DiscountPercent = 10, IsForUniversityStudentsOnly = false },
+                new PromoCode { Code = "STUDENT20", DiscountPercent = 20, IsForUniversityStudentsOnly = true }
+            );
+
+            builder.Entity<OptionalCourse>().HasData(
+                new OptionalCourse { Id = 300, Name = "C# Basics", Description = "Intro to C# and .NET", MainImg = "csharp.png", Price = 800, IsAvailableForUniversityStudents = true, InstructorId = 101, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 301, Name = "Entity Framework Core", Description = "Learn EF Core ORM", MainImg = "efcore.png", Price = 1200, IsAvailableForUniversityStudents = true, InstructorId = 101, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 302, Name = "React Fundamentals", Description = "Frontend development with React", MainImg = "react.png", Price = 1500, IsAvailableForUniversityStudents = false, InstructorId = 102, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 303, Name = "Angular Crash Course", Description = "Learn Angular fast", MainImg = "angular.png", Price = 1400, IsAvailableForUniversityStudents = true, InstructorId = 102 , PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 304, Name = "Python for Data Science", Description = "Pandas, NumPy, and basics of ML", MainImg = "python.png", Price = 1600, IsAvailableForUniversityStudents = false, InstructorId = 103, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 305, Name = "Machine Learning 101", Description = "Intro to ML concepts", MainImg = "ml.png", Price = 2000, IsAvailableForUniversityStudents = true, InstructorId = 103, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 306, Name = "UI/UX Advanced", Description = "Wireframes & Prototyping", MainImg = "uiux.png", Price = 1300, IsAvailableForUniversityStudents = true, InstructorId = 104, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 307, Name = "Mobile Development with Flutter", Description = "Cross-platform apps", MainImg = "flutter.png", Price = 1800, IsAvailableForUniversityStudents = true, InstructorId = 104, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 308, Name = "Cybersecurity Basics", Description = "Security principles and practices", MainImg = "cyber.png", Price = 2200, IsAvailableForUniversityStudents = false, InstructorId = 100, PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 309, Name = "Cloud with Azure", Description = "Azure fundamentals", MainImg = "azure.png", Price = 2100, IsAvailableForUniversityStudents = true, InstructorId = 100, PromoCode = "PROMO10" }
+            );
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+        }
     }
 }
