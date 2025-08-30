@@ -51,14 +51,21 @@
                 color: white;
             }
 
-        .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        text-align: center;
+        /* الجديد */
+        min-height: 80vh; /* يديك 80% من ارتفاع الشاشة */
+        display: flex;
+        align-items: center; /* يخلي المحتوى يتوسّط عموديًا */
+        justify-content: center;
+        flex-direction: column;
+        padding: 100px 20px; /* padding زيادة لو عايز */
+    }
+
 
         .discount-badge {
             background-color: var(--secondary-color);

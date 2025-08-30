@@ -109,11 +109,22 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle fa-lg me-2"></i>
-                            <span>John Doe</span>
+                            <span>@User.Identity.Name</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
 
                             <li><a class="dropdown-item" asp-area="Account" asp-controller="ProfileSetting" asp-action="Index">Profile Settings</a></li>
+                             @if (User.IsInRole($"{SD.ExternalStudent}"))
+                            {
+                                <li><a class="dropdown-item" asp-area="Customer" asp-controller="UniversityStudent" asp-action="CartOfCourses">Cart Of Course</a></li>
+
+
+                            }
+                            else
+                            {
+                                <li><a class="dropdown-item" asp-area="Customer" asp-controller="UniversityStudent" asp-action="CartOfCourses">Cart of Courses</a></li>
+
+                            }
 
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
@@ -125,9 +136,10 @@
     </nav>
 
     <!-- Page Content -->
-    <main role="main" class="container my-4">
+    <main role="main" class="container-fluid  px-0">
         @RenderBody()
     </main>
+
 
     <!-- Footer -->
     <footer>

@@ -29,8 +29,8 @@ namespace Entities.ViewModel
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string? ConfirmPassword { get; set; }
-        public List<int> SelectedAssistantIds { get; set; } = new List<int>();
-        public List<SelectListItem> AssistantsList { get; set; } = new();
+        //public List<int> SelectedAssistantIds { get; set; } = new List<int>();
+        //public List<SelectListItem> AssistantsList { get; set; } = new();
         public List<int> SelectedCourseIds { get; set; } = new List<int>();
         public List<SelectListItem> CoursesList { get; set; } = new();
     }

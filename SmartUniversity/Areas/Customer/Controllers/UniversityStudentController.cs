@@ -29,6 +29,7 @@ namespace SmartUniversity.Areas.Customer.Controllers
             return View();
         }
         [HttpGet]
+      
         public async Task<IActionResult> RegisterCourses()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -38,6 +39,13 @@ namespace SmartUniversity.Areas.Customer.Controllers
             var student = await _unitOfWork.Students.GetOneAsync(e => e.ApplicationUserId == user.Id);
             if (student == null)
                 return NotFound();
+
+            var paidEnrollments = await _unitOfWork.Enrollments.GetAsync(e => e.StudentID == student.Id && e.IsPaid && e.UniversityCourse.TermId == student.TermId);
+            if (paidEnrollments.Any())
+            {
+                ViewBag.NoCoursesMessage = "You have already registered and paid. No courses are available for registration.";
+                return View(new List<RegisterCoursesVM>()); 
+            }
 
             var courses = await _unitOfWork.UniversityCourses.GetAsync(
                 e => e.TermId == student.TermId && e.DepartmentID == student.DepartmentID
@@ -60,7 +68,8 @@ namespace SmartUniversity.Areas.Customer.Controllers
             return View(vm);
         }
 
-        [HttpPost]
+
+
         [HttpPost]
         public async Task<IActionResult> RegisterCourses(List<int> SelectedCourses)
         {
@@ -76,15 +85,12 @@ namespace SmartUniversity.Areas.Customer.Controllers
                 return RedirectToAction(nameof(RegisterCourses));
             }
 
-            // إزالة التكرار
             SelectedCourses = SelectedCourses.Distinct().ToList();
 
-            // الكورسات المسجلة قبل كده
             var registered = await _unitOfWork.Enrollments.GetAsync(e => e.StudentID == student.Id);
             var registeredIds = registered.Select(e => e.UniversityCourseID).ToList();
             int alreadyRegisteredCredits = registered.Sum(e => e.CreditHours);
 
-            // الكورسات الجديدة فقط (المختارة بس مش مسجلة قبل كده)
             var newCourses = await _unitOfWork.UniversityCourses.GetAsync(
                 c => SelectedCourses.Contains(c.Id) && !registeredIds.Contains(c.Id)
             );
@@ -92,14 +98,12 @@ namespace SmartUniversity.Areas.Customer.Controllers
             int newCredits = newCourses.Sum(c => c.CreditHours);
             int totalCredits = alreadyRegisteredCredits + newCredits;
 
-            // التحقق من الرينج
             if (totalCredits < 15 || totalCredits > 18)
             {
                 TempData["error-notification"] = "You must register between 15 and 18 credit hours in total.";
                 return RedirectToAction(nameof(RegisterCourses));
             }
 
-            // تسجيل الكورسات الجديدة فقط
             foreach (var course in newCourses)
             {
                 var enrollment = new Enrollment
@@ -116,11 +120,11 @@ namespace SmartUniversity.Areas.Customer.Controllers
             }
 
             TempData["success-notification"] = "Courses registered successfully.";
-            return RedirectToAction("MyCourses");
+            return RedirectToAction(nameof(CartOfCourses));
         }
 
 
-        public async Task<IActionResult> MyCourses()
+        public async Task<IActionResult> CartOfCourses()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return NotFound();
@@ -129,7 +133,8 @@ namespace SmartUniversity.Areas.Customer.Controllers
             if (student == null) return NotFound();
 
             var enrollments = await _unitOfWork.Enrollments.GetAsync(
-                e => e.StudentID == student.Id,
+                e => e.StudentID == student.Id&&e.IsPaid==false,
+
                 include: new Expression<Func<Enrollment, object>>[] { e => e.UniversityCourse }
             );
 
@@ -176,7 +181,7 @@ namespace SmartUniversity.Areas.Customer.Controllers
                 TempData["error-notification"] = "Course not found in your registration.";
             }
 
-            return RedirectToAction(nameof(MyCourses));
+            return RedirectToAction(nameof(CartOfCourses));
         }
 
         public async Task<IActionResult> Pay()
@@ -195,7 +200,7 @@ namespace SmartUniversity.Areas.Customer.Controllers
             if (enrollments == null || !enrollments.Any())
             {
                 TempData["error-notification"] = "You do not have any courses to pay for.";
-                return RedirectToAction(nameof(MyCourses));
+                return RedirectToAction(nameof(CartOfCourses));
             }
 
             const int pricePerCredit = 50;
@@ -233,6 +238,36 @@ namespace SmartUniversity.Areas.Customer.Controllers
             var session = service.Create(options);
 
             return Redirect(session.Url);
+        }
+
+        public async Task<IActionResult> MyEnrollments()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return NotFound();
+
+            var student = await _unitOfWork.Students.GetOneAsync(s => s.ApplicationUserId == user.Id);
+            if (student == null) return NotFound();
+
+            var enrollments = await _unitOfWork.Enrollments.GetAsync(
+                e => e.StudentID == student.Id,
+                include: new Expression<Func<Enrollment, object>>[]
+                {
+                 e => e.UniversityCourse,
+                 e => e.UniversityCourse.Doctor,
+                 e => e.UniversityCourse.Doctor.ApplicationUser
+                }
+            );
+
+            var vm = enrollments.Select(e => new RegisterCoursesVM
+            {
+                CourseId = e.UniversityCourseID,
+                Name = e.UniversityCourse.Name,
+                Credits = e.CreditHours,
+                IsPaid = e.IsPaid,
+                DoctorName = e.UniversityCourse.Doctor.ApplicationUser.FullName  
+            }).ToList();
+
+            return View(vm);
         }
 
 

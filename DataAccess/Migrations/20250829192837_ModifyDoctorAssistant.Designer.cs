@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250829192837_ModifyDoctorAssistant")]
+    partial class ModifyDoctorAssistant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,103 +142,6 @@ namespace DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "inst-user-100",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c95f9775-b4fc-4aa0-a1ea-d4db9a763fe9",
-                            Email = "ahmed@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Ahmed",
-                            FullName = "Ahmed Kamal",
-                            LastName = "Kamal",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "AHMED@TEST.COM",
-                            NormalizedUserName = "AHMED@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4f06ca7e-40cf-4c09-b24f-51601e2e6bfa",
-                            TwoFactorEnabled = false,
-                            UserName = "ahmed@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-101",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d60a6e56-8241-406b-96c4-874c62873f68",
-                            Email = "mona@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Mona",
-                            FullName = "Mona Ali",
-                            LastName = "Ali",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MONA@TEST.COM",
-                            NormalizedUserName = "MONA@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d7cc102-8d77-42a0-b25b-f83bdd22cb53",
-                            TwoFactorEnabled = false,
-                            UserName = "mona@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-102",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e69a5b19-9658-4cae-bf9c-ca7d8654d602",
-                            Email = "hossam@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Hossam",
-                            FullName = "Hossam Yehia",
-                            LastName = "Yehia",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HOSSAM@TEST.COM",
-                            NormalizedUserName = "HOSSAM@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc28a22e-872d-4ae4-a708-58aa304da100",
-                            TwoFactorEnabled = false,
-                            UserName = "hossam@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-103",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "145d3b44-df10-402e-a6ca-340e211904da",
-                            Email = "sara@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Sara",
-                            FullName = "Sara Ibrahim",
-                            LastName = "Ibrahim",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SARA@TEST.COM",
-                            NormalizedUserName = "SARA@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1897aa75-6f5d-4931-89cc-71a2157ebdb0",
-                            TwoFactorEnabled = false,
-                            UserName = "sara@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-104",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0474a13d-284a-46cd-8dc9-e6df4b22d093",
-                            Email = "khaled@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Khaled",
-                            FullName = "Khaled Mostafa",
-                            LastName = "Mostafa",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "KHALED@TEST.COM",
-                            NormalizedUserName = "KHALED@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "96b2127f-3bf3-47b3-a2c5-fddf22dc0862",
-                            TwoFactorEnabled = false,
-                            UserName = "khaled@test.com"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.ApplicationUserOtp", b =>
@@ -529,53 +435,6 @@ namespace DataAccess.Migrations
                     b.ToTable("Feedbacks");
                 });
 
-            modelBuilder.Entity("Entities.Models.Instructor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId")
-                        .IsUnique();
-
-                    b.ToTable("Instructors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100,
-                            ApplicationUserId = "inst-user-100"
-                        },
-                        new
-                        {
-                            Id = 101,
-                            ApplicationUserId = "inst-user-101"
-                        },
-                        new
-                        {
-                            Id = 102,
-                            ApplicationUserId = "inst-user-102"
-                        },
-                        new
-                        {
-                            Id = 103,
-                            ApplicationUserId = "inst-user-103"
-                        },
-                        new
-                        {
-                            Id = 104,
-                            ApplicationUserId = "inst-user-104"
-                        });
-                });
-
             modelBuilder.Entity("Entities.Models.Material", b =>
                 {
                     b.Property<int>("Id")
@@ -617,15 +476,8 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InstructorId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsAvailableForUniversityStudents")
                         .HasColumnType("bit");
-
-                    b.Property<string>("MainImg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -639,123 +491,40 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstructorId");
-
                     b.HasIndex("PromoCode");
 
                     b.ToTable("OptionalCourses");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 300,
-                            Description = "Intro to C# and .NET",
-                            InstructorId = 101,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "csharp.png",
-                            Name = "C# Basics",
-                            Price = 800m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 301,
-                            Description = "Learn EF Core ORM",
-                            InstructorId = 101,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "efcore.png",
-                            Name = "Entity Framework Core",
-                            Price = 1200m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 302,
-                            Description = "Frontend development with React",
-                            InstructorId = 102,
-                            IsAvailableForUniversityStudents = false,
-                            MainImg = "react.png",
-                            Name = "React Fundamentals",
-                            Price = 1500m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 303,
-                            Description = "Learn Angular fast",
-                            InstructorId = 102,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "angular.png",
-                            Name = "Angular Crash Course",
-                            Price = 1400m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 304,
-                            Description = "Pandas, NumPy, and basics of ML",
-                            InstructorId = 103,
-                            IsAvailableForUniversityStudents = false,
-                            MainImg = "python.png",
-                            Name = "Python for Data Science",
-                            Price = 1600m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 305,
-                            Description = "Intro to ML concepts",
-                            InstructorId = 103,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "ml.png",
-                            Name = "Machine Learning 101",
-                            Price = 2000m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 306,
-                            Description = "Wireframes & Prototyping",
-                            InstructorId = 104,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "uiux.png",
-                            Name = "UI/UX Advanced",
-                            Price = 1300m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 307,
-                            Description = "Cross-platform apps",
-                            InstructorId = 104,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "flutter.png",
-                            Name = "Mobile Development with Flutter",
-                            Price = 1800m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 308,
-                            Description = "Security principles and practices",
-                            InstructorId = 100,
-                            IsAvailableForUniversityStudents = false,
-                            MainImg = "cyber.png",
-                            Name = "Cybersecurity Basics",
-                            Price = 2200m,
-                            PromoCode = "PROMO10"
-                        },
-                        new
-                        {
-                            Id = 309,
-                            Description = "Azure fundamentals",
-                            InstructorId = 100,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "azure.png",
-                            Name = "Cloud with Azure",
-                            Price = 2100m,
-                            PromoCode = "PROMO10"
-                        });
+            modelBuilder.Entity("Entities.Models.OptionalCourseEnrollment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppliedPromoCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("OptionalCourseID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppliedPromoCode");
+
+                    b.HasIndex("OptionalCourseID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("OptionalCourseEnrollments");
                 });
 
             modelBuilder.Entity("Entities.Models.PromoCode", b =>
@@ -772,20 +541,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Code");
 
                     b.ToTable("PromoCodes");
-
-                    b.HasData(
-                        new
-                        {
-                            Code = "PROMO10",
-                            DiscountPercent = 10m,
-                            IsForUniversityStudentsOnly = false
-                        },
-                        new
-                        {
-                            Code = "STUDENT20",
-                            DiscountPercent = 20m,
-                            IsForUniversityStudentsOnly = true
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Student", b =>
@@ -1694,32 +1449,6 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.UserOptionalCourse", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("OptionalCourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AppliedPromoCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AppliedPromoCodeEntityCode")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ApplicationUserId", "OptionalCourseId");
-
-                    b.HasIndex("AppliedPromoCodeEntityCode");
-
-                    b.HasIndex("OptionalCourseId");
-
-                    b.ToTable("UserOptionalCourses");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -2020,17 +1749,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("Entities.Models.Instructor", b =>
-                {
-                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
-                        .WithOne("Instructor")
-                        .HasForeignKey("Entities.Models.Instructor", "ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-                });
-
             modelBuilder.Entity("Entities.Models.Material", b =>
                 {
                     b.HasOne("Entities.Models.UniversityCourse", "UniversityCourse")
@@ -2044,19 +1762,36 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Models.OptionalCourse", b =>
                 {
-                    b.HasOne("Entities.Models.Instructor", "Instructor")
-                        .WithMany("OptionalCourses")
-                        .HasForeignKey("InstructorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.Models.PromoCode", "PromoCodeEntity")
                         .WithMany("OptionalCourses")
                         .HasForeignKey("PromoCode");
 
-                    b.Navigation("Instructor");
-
                     b.Navigation("PromoCodeEntity");
+                });
+
+            modelBuilder.Entity("Entities.Models.OptionalCourseEnrollment", b =>
+                {
+                    b.HasOne("Entities.Models.PromoCode", "AppliedPromoCodeEntity")
+                        .WithMany()
+                        .HasForeignKey("AppliedPromoCode");
+
+                    b.HasOne("Entities.Models.OptionalCourse", "OptionalCourse")
+                        .WithMany("OptionalCourseEnrollments")
+                        .HasForeignKey("OptionalCourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Student", "Student")
+                        .WithMany("OptionalCourseEnrollments")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppliedPromoCodeEntity");
+
+                    b.Navigation("OptionalCourse");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Entities.Models.Student", b =>
@@ -2155,31 +1890,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Term");
                 });
 
-            modelBuilder.Entity("Entities.Models.UserOptionalCourse", b =>
-                {
-                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.PromoCode", "AppliedPromoCodeEntity")
-                        .WithMany()
-                        .HasForeignKey("AppliedPromoCodeEntityCode");
-
-                    b.HasOne("Entities.Models.OptionalCourse", "OptionalCourse")
-                        .WithMany()
-                        .HasForeignKey("OptionalCourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("AppliedPromoCodeEntity");
-
-                    b.Navigation("OptionalCourse");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -2237,8 +1947,6 @@ namespace DataAccess.Migrations
 
                     b.Navigation("Doctor");
 
-                    b.Navigation("Instructor");
-
                     b.Navigation("Student");
                 });
 
@@ -2274,9 +1982,9 @@ namespace DataAccess.Migrations
                     b.Navigation("UniversityCourses");
                 });
 
-            modelBuilder.Entity("Entities.Models.Instructor", b =>
+            modelBuilder.Entity("Entities.Models.OptionalCourse", b =>
                 {
-                    b.Navigation("OptionalCourses");
+                    b.Navigation("OptionalCourseEnrollments");
                 });
 
             modelBuilder.Entity("Entities.Models.PromoCode", b =>
@@ -2295,6 +2003,8 @@ namespace DataAccess.Migrations
                     b.Navigation("Enrollments");
 
                     b.Navigation("Feedbacks");
+
+                    b.Navigation("OptionalCourseEnrollments");
 
                     b.Navigation("TaskSubmissions");
                 });

@@ -12,6 +12,9 @@ namespace Entities.ViewModel
         public string Name { get; set; } = string.Empty;
         public int Credits { get; set; }
         public bool IsSelected { get; set; } 
-       // public List<int> SelectedCourses{ get; set; }=new List<int>();
+        public bool IsPaid { get; set; }
+        public string DoctorName { get; set; } = string.Empty;
+
+        // public List<int> SelectedCourses{ get; set; }=new List<int>();
     }
 }
