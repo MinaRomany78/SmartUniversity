@@ -3,8 +3,17 @@
 @{
     ViewData["Title"] = "Register Courses";
 }
-
+@if (ViewBag.NoCoursesMessage != null)
+{
+    <div class="alert alert-warning text-center">
+        @ViewBag.NoCoursesMessage
+    </div>
+}
+else
+{
 <div class="container mt-5">
+
+
     <div class="card shadow-lg border-0 rounded-4">
         <!-- Card Header -->
         <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
@@ -76,6 +85,7 @@
         </div>
     </div>
 </div>
+}
 
 <!-- CSS -->
 <style>
@@ -227,6 +237,3 @@
     </script>
 }
 
-
-    </script>
-}

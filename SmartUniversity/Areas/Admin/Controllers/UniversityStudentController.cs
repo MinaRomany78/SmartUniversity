@@ -150,6 +150,8 @@ namespace SmartUniversity.Areas.Admin.Controllers
                 LastName = student.ApplicationUser.LastName,
                 Email = student!.ApplicationUser.Email??"",
                 IsEmailConfirmed = student.ApplicationUser.EmailConfirmed,
+                DepartmentId = student.DepartmentID,   
+                TermId = student.TermId,
                 DepartMentList = (await _unitOfWork.Departments.GetAsync())
                 .Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Name })
                 .ToList(),
