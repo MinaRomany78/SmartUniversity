@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250830204208_AddingOrderModelWithItsRepos")]
+    partial class AddingOrderModelWithItsRepos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +148,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-100",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "747b3220-8260-4cfa-bbfa-80064274afd0",
+                            ConcurrencyStamp = "be720aac-fb6e-4546-9c8b-14b56464218c",
                             Email = "ahmed@test.com",
                             EmailConfirmed = true,
                             FirstName = "Ahmed",
@@ -156,7 +159,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "AHMED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bc90d90b-04db-421b-bb26-102857ac43db",
+                            SecurityStamp = "d3d4e490-a6e6-4b51-b398-e6c7088ed550",
                             TwoFactorEnabled = false,
                             UserName = "ahmed@test.com"
                         },
@@ -164,7 +167,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-101",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "217fb9f0-b614-4504-91da-2e323fd84d6b",
+                            ConcurrencyStamp = "556bf341-7737-40fb-890e-8ce25891212c",
                             Email = "mona@test.com",
                             EmailConfirmed = true,
                             FirstName = "Mona",
@@ -175,7 +178,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "MONA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "298c834b-1bd5-4690-b3cf-6bb45c781769",
+                            SecurityStamp = "dca08d30-9507-49c9-b443-12b4b75e7ae3",
                             TwoFactorEnabled = false,
                             UserName = "mona@test.com"
                         },
@@ -183,7 +186,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-102",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f7f21441-a77f-45e7-82bb-094683a5af7e",
+                            ConcurrencyStamp = "024e437f-187a-43e7-a779-b4c5318667aa",
                             Email = "hossam@test.com",
                             EmailConfirmed = true,
                             FirstName = "Hossam",
@@ -194,7 +197,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "HOSSAM@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f6ce27d4-7215-4996-b2be-5d7f89b252e4",
+                            SecurityStamp = "5127a3f9-f75f-4e0d-a629-4f01f3f38c46",
                             TwoFactorEnabled = false,
                             UserName = "hossam@test.com"
                         },
@@ -202,7 +205,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-103",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1a6ff9fd-94f4-4ab7-94b4-27da33677e8f",
+                            ConcurrencyStamp = "4d685d5d-1dcf-4f01-bf26-5561ca35037a",
                             Email = "sara@test.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
@@ -213,7 +216,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "SARA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bb77790f-507b-45dd-90f3-9d33bf92e173",
+                            SecurityStamp = "757492c3-9f1e-4302-bb94-96eb924ed56c",
                             TwoFactorEnabled = false,
                             UserName = "sara@test.com"
                         },
@@ -221,7 +224,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-104",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c9ab0619-25f3-477c-beee-6793d199624d",
+                            ConcurrencyStamp = "f8361307-9719-437a-949b-937130126017",
                             Email = "khaled@test.com",
                             EmailConfirmed = true,
                             FirstName = "Khaled",
@@ -232,7 +235,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "KHALED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a94c08cd-519d-4ac9-a61c-ce5457d05e53",
+                            SecurityStamp = "1c9dd96b-ae5d-4bff-9641-5133d7c6a855",
                             TwoFactorEnabled = false,
                             UserName = "khaled@test.com"
                         });
@@ -503,9 +506,14 @@ namespace DataAccess.Migrations
                     b.Property<int>("AssistantId")
                         .HasColumnType("int");
 
-                    b.HasKey("DoctorId", "AssistantId");
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorId", "AssistantId", "CourseId");
 
                     b.HasIndex("AssistantId");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("DoctorAssistants");
                 });
@@ -848,8 +856,11 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("PricePaid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("PromoCodeId")
+                    b.Property<string>("PromoCodeCode")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PromoCodeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -857,7 +868,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("OptionalCourseId");
 
-                    b.HasIndex("PromoCodeId");
+                    b.HasIndex("PromoCodeCode");
 
                     b.ToTable("Orders");
                 });
@@ -2105,6 +2116,12 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entities.Models.UniversityCourse", "Course")
+                        .WithMany("DoctorAssistants")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("DoctorAssistants")
                         .HasForeignKey("DoctorId")
@@ -2112,6 +2129,8 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Assistant");
+
+                    b.Navigation("Course");
 
                     b.Navigation("Doctor");
                 });
@@ -2217,7 +2236,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Entities.Models.PromoCode", "PromoCode")
                         .WithMany("Orders")
-                        .HasForeignKey("PromoCodeId");
+                        .HasForeignKey("PromoCodeCode");
 
                     b.Navigation("ApplicationUser");
 
@@ -2488,6 +2507,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Models.UniversityCourse", b =>
                 {
                     b.Navigation("AssistantCourses");
+
+                    b.Navigation("DoctorAssistants");
 
                     b.Navigation("Enrollments");
 
