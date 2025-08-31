@@ -15,7 +15,6 @@ namespace DataAccess.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Application> Applications { get; set; }
