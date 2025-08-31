@@ -248,27 +248,24 @@ namespace SmartUniversity.Areas.Customer.Controllers
             var student = await _unitOfWork.Students.GetOneAsync(s => s.ApplicationUserId == user.Id);
             if (student == null) return NotFound();
 
-            var enrollments = await _unitOfWork.Enrollments.GetAsync(
-                e => e.StudentID == student.Id,
-                include: new Expression<Func<Enrollment, object>>[]
-                {
-                 e => e.UniversityCourse,
-                 e => e.UniversityCourse.Doctor,
-                 e => e.UniversityCourse.Doctor.ApplicationUser
-                }
-            );
-
-            var vm = enrollments.Select(e => new RegisterCoursesVM
+            var enrollments = await _unitOfWork.Enrollments.GetEnrollmentsWithDetailsAsync(student.Id);
+           
+            var vm = enrollments.Select(e => new EnrollmentVM
             {
                 CourseId = e.UniversityCourseID,
-                Name = e.UniversityCourse.Name,
-                Credits = e.CreditHours,
-                IsPaid = e.IsPaid,
-                DoctorName = e.UniversityCourse.Doctor.ApplicationUser.FullName  
+                CourseName = e.UniversityCourse.Name,
+                DoctorName = e.UniversityCourse.Doctor.ApplicationUser.FullName,
+
+                Assistants = e.UniversityCourse.AssistantCourses
+                   .Select(ac => ac.Assistant.ApplicationUser?.FullName ?? "Unknown Assistant")
+                   .Distinct() 
+                   .ToList()
             }).ToList();
 
             return View(vm);
+
         }
+
 
 
 
