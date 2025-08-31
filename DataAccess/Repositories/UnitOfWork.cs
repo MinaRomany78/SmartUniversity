@@ -31,6 +31,8 @@ namespace DataAccess.Repositories
         public IDepartmentRepository Departments {  get; }
         public ITermRepository Terms { get; }
         public IInstructorRepository Instructors { get; }
+        public IPostFileRepository PostFiles { get; }
+        public IPostLinkRepository PostLinks { get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
@@ -56,7 +58,9 @@ namespace DataAccess.Repositories
             ITaskSubmissionRepository taskSubmissions,
             IUniversityCourseRepository universityCourses,
             ITermRepository terms,
-            IInstructorRepository instructors
+            IInstructorRepository instructors,
+            IPostLinkRepository postLinks,
+            IPostFileRepository postFiles
             )
         {
             _context = context;
@@ -82,6 +86,9 @@ namespace DataAccess.Repositories
             Departments = departments;
             Terms = terms;
             Instructors = instructors;
+            PostLinks = postLinks;
+            PostFiles = postFiles;
+            UserOptionalCourses = userOptionalCourses;
         }
 
         public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();

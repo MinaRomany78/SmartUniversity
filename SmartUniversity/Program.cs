@@ -59,6 +59,8 @@ builder.Services.AddScoped<ITaskSubmissionRepository, TaskSubmissionRepository>(
 builder.Services.AddScoped<IUniversityCourseRepository, UniversityCourseRepository>();
 builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 builder.Services.AddScoped<IUserOptionalCourseRepository, UserOptionalCourseRepository>();
+builder.Services.AddScoped<IPostLinkRepository, PostLinkRepository>();
+builder.Services.AddScoped<IPostFileRepository, PostFileRepository>();
 
 // UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

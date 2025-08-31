@@ -5,84 +5,114 @@
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class seedingData : Migration
+    public partial class modfiy : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "UniversityCourseId",
+                table: "CommunityPosts",
+                type: "int",
+                nullable: true);
+
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-100",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "90e33f22-8f10-45ca-b21e-ab1512754aa8", "fa430bfd-606c-45f5-ae94-9446402961d1" });
+                values: new object[] { "e0b1718a-7d47-4ad3-be12-be90a4c7081b", "cc85c233-addc-4b69-8c4c-7b11f7e15685" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-101",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "11b2c74a-abad-4c05-93da-b674284146e7", "49643e6d-cef3-4c86-ac71-b06c528dd7d8" });
+                values: new object[] { "403663bf-eb4a-41c0-b402-7ba6433fecab", "13bed691-050e-411a-9652-d8b41f191210" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-102",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "70205ede-1bdd-4b64-a853-5ee327c42afd", "5ef73956-8984-4531-8c0b-9b30dd1baa4a" });
+                values: new object[] { "4aa8e76c-4180-41df-ae2c-3726e08a678f", "afbf0e1b-42d3-4307-a262-67178b2d81ae" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-103",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "419a4c89-2fdc-4459-8cb4-468df981901c", "1e6e1fda-1afe-4368-b113-beac1164e62f" });
+                values: new object[] { "acb83f50-cdec-4877-bb3a-28c9cbc75eca", "330783e0-1065-4372-a3eb-4d8d6dce53dd" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-104",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "d78d268c-e70f-4f32-8a29-33b0275f8f41", "f057e07e-7ef4-413e-8ada-106555f98c09" });
+                values: new object[] { "cc7d04c7-c08b-47e3-a883-9931505d9f9f", "720a6004-f97b-4334-860b-b2502b55d008" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommunityPosts_UniversityCourseId",
+                table: "CommunityPosts",
+                column: "UniversityCourseId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_CommunityPosts_UniversityCourses_UniversityCourseId",
+                table: "CommunityPosts",
+                column: "UniversityCourseId",
+                principalTable: "UniversityCourses",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_CommunityPosts_UniversityCourses_UniversityCourseId",
+                table: "CommunityPosts");
+
+            migrationBuilder.DropIndex(
+                name: "IX_CommunityPosts_UniversityCourseId",
+                table: "CommunityPosts");
+
+            migrationBuilder.DropColumn(
+                name: "UniversityCourseId",
+                table: "CommunityPosts");
+
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-100",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "f66bfd5c-e8d4-43be-95fa-101ec9ed41e9", "f6fe61d4-a282-4a26-a162-8ee520cfa31a" });
+                values: new object[] { "04711e2a-7c96-4c78-b109-f44e9e77a2f3", "669bf75c-0771-4b83-a89f-34adb659fdf3" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-101",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "d429803b-27c6-4baa-9119-d5a5c4090680", "2b3c053a-efba-43e4-9efb-d7e67424958d" });
+                values: new object[] { "6587b456-5f46-4a57-b206-4daf3cf11f83", "bba4931e-511a-4a2b-9cda-6a294f4241d1" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-102",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "54ba170e-aa1a-496d-ab41-a85bc853df70", "246cc983-0586-41ce-97b7-2a74c5d83cbb" });
+                values: new object[] { "519a6a9a-d5e7-4c22-aeb0-0057213bdad3", "f8d8f81d-88b5-4123-91a8-6ca0e4ea33d5" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-103",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "e69371f6-d527-4a82-b11c-d145b56264ae", "6ab0e434-75cd-4b4d-8e7e-45e3399969a8" });
+                values: new object[] { "c68c7d5d-cff7-4c2c-a1e2-cb01bab24390", "9ebee9c7-87d5-4005-8a06-82271984e45a" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "inst-user-104",
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "795f6887-d2da-40c9-8240-f13f7632e598", "e3cd6fa4-23f5-4719-96ca-17925715b071" });
+                values: new object[] { "49737d22-f10f-47d2-a8cf-9942ba1f4d4b", "4b1be4b5-7ba7-4b12-9f24-c4c71dd64628" });
         }
     }
 }

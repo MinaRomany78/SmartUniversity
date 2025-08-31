@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
@@ -364,6 +362,30 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DoctorAssistants",
+                columns: table => new
+                {
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    AssistantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorAssistants", x => new { x.DoctorId, x.AssistantId });
+                    table.ForeignKey(
+                        name: "FK_DoctorAssistants_Assistants_AssistantId",
+                        column: x => x.AssistantId,
+                        principalTable: "Assistants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorAssistants_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UniversityCourses",
                 columns: table => new
                 {
@@ -486,37 +508,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DoctorAssistants",
-                columns: table => new
-                {
-                    DoctorId = table.Column<int>(type: "int", nullable: false),
-                    AssistantId = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorAssistants", x => new { x.DoctorId, x.AssistantId, x.CourseId });
-                    table.ForeignKey(
-                        name: "FK_DoctorAssistants_Assistants_AssistantId",
-                        column: x => x.AssistantId,
-                        principalTable: "Assistants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_DoctorAssistants_Doctors_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_DoctorAssistants_UniversityCourses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "UniversityCourses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Enrollments",
                 columns: table => new
                 {
@@ -537,7 +528,7 @@ namespace DataAccess.Migrations
                         column: x => x.StudentID,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Enrollments_UniversityCourses_UniversityCourseID",
                         column: x => x.UniversityCourseID,
@@ -610,13 +601,13 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserOptionalCourses", x => new { x.ApplicationUserId, x.OptionalCourseId }).Annotation("SqlServer:Clustered", false);
+                    table.PrimaryKey("PK_UserOptionalCourses", x => new { x.ApplicationUserId, x.OptionalCourseId });
                     table.ForeignKey(
                         name: "FK_UserOptionalCourses_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserOptionalCourses_OptionalCourses_OptionalCourseId",
                         column: x => x.OptionalCourseId,
@@ -723,167 +714,13 @@ namespace DataAccess.Migrations
                         column: x => x.StudentID,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TaskSubmissions_SubjectTasks_TaskID",
                         column: x => x.TaskID,
                         principalTable: "SubjectTasks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "FullName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "inst-user-100", 0, null, "f66bfd5c-e8d4-43be-95fa-101ec9ed41e9", "ahmed@test.com", true, "Ahmed", "Ahmed Kamal", "Kamal", false, null, "AHMED@TEST.COM", "AHMED@TEST.COM", "FAKE_HASH", null, false, "f6fe61d4-a282-4a26-a162-8ee520cfa31a", false, "ahmed@test.com" },
-                    { "inst-user-101", 0, null, "d429803b-27c6-4baa-9119-d5a5c4090680", "mona@test.com", true, "Mona", "Mona Ali", "Ali", false, null, "MONA@TEST.COM", "MONA@TEST.COM", "FAKE_HASH", null, false, "2b3c053a-efba-43e4-9efb-d7e67424958d", false, "mona@test.com" },
-                    { "inst-user-102", 0, null, "54ba170e-aa1a-496d-ab41-a85bc853df70", "hossam@test.com", true, "Hossam", "Hossam Yehia", "Yehia", false, null, "HOSSAM@TEST.COM", "HOSSAM@TEST.COM", "FAKE_HASH", null, false, "246cc983-0586-41ce-97b7-2a74c5d83cbb", false, "hossam@test.com" },
-                    { "inst-user-103", 0, null, "e69371f6-d527-4a82-b11c-d145b56264ae", "sara@test.com", true, "Sara", "Sara Ibrahim", "Ibrahim", false, null, "SARA@TEST.COM", "SARA@TEST.COM", "FAKE_HASH", null, false, "6ab0e434-75cd-4b4d-8e7e-45e3399969a8", false, "sara@test.com" },
-                    { "inst-user-104", 0, null, "795f6887-d2da-40c9-8240-f13f7632e598", "khaled@test.com", true, "Khaled", "Khaled Mostafa", "Mostafa", false, null, "KHALED@TEST.COM", "KHALED@TEST.COM", "FAKE_HASH", null, false, "e3cd6fa4-23f5-4719-96ca-17925715b071", false, "khaled@test.com" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Departments",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "General" },
-                    { 2, "Computer Science" },
-                    { 3, "Information Systems" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "PromoCodes",
-                columns: new[] { "Code", "DiscountPercent", "IsForUniversityStudentsOnly" },
-                values: new object[,]
-                {
-                    { "PROMO10", 10m, false },
-                    { "STUDENT20", 20m, true }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Terms",
-                columns: new[] { "Id", "TermNumber", "Year" },
-                values: new object[,]
-                {
-                    { 1, 1, 1 },
-                    { 2, 2, 1 },
-                    { 3, 1, 2 },
-                    { 4, 2, 2 },
-                    { 5, 1, 3 },
-                    { 6, 2, 3 },
-                    { 7, 1, 4 },
-                    { 8, 2, 4 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Instructors",
-                columns: new[] { "Id", "ApplicationUserId" },
-                values: new object[,]
-                {
-                    { 100, "inst-user-100" },
-                    { 101, "inst-user-101" },
-                    { 102, "inst-user-102" },
-                    { 103, "inst-user-103" },
-                    { 104, "inst-user-104" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "UniversityCourses",
-                columns: new[] { "Id", "CreditHours", "DepartmentID", "Description", "DoctorID", "Name", "TermId" },
-                values: new object[,]
-                {
-                    { 1, 3, 1, "", null, "Mathematics 1", 1 },
-                    { 2, 3, 1, "", null, "Programming Basics", 1 },
-                    { 3, 3, 1, "", null, "Physics 1", 1 },
-                    { 4, 3, 1, "", null, "English 1", 1 },
-                    { 5, 3, 1, "", null, "Introduction to IT", 1 },
-                    { 6, 3, 1, "", null, "Critical Thinking", 1 },
-                    { 7, 3, 1, "", null, "Mathematics 2", 2 },
-                    { 8, 3, 1, "", null, "Object Oriented Programming", 2 },
-                    { 9, 3, 1, "", null, "Physics 2", 2 },
-                    { 10, 3, 1, "", null, "English 2", 2 },
-                    { 11, 3, 1, "", null, "Introduction to Database", 2 },
-                    { 12, 3, 1, "", null, "Communication Skills", 2 },
-                    { 13, 3, 1, "", null, "Mathematics 3", 3 },
-                    { 14, 3, 1, "", null, "Data Structures", 3 },
-                    { 15, 3, 1, "", null, "Computer Organization", 3 },
-                    { 16, 3, 1, "", null, "Probability & Statistics", 3 },
-                    { 17, 3, 1, "", null, "Operating Systems Basics", 3 },
-                    { 18, 3, 1, "", null, "Ethics", 3 },
-                    { 19, 3, 1, "", null, "Mathematics 4", 4 },
-                    { 20, 3, 1, "", null, "Algorithms", 4 },
-                    { 21, 3, 1, "", null, "Digital Logic", 4 },
-                    { 22, 3, 1, "", null, "Software Engineering Basics", 4 },
-                    { 23, 3, 1, "", null, "Database Systems", 4 },
-                    { 24, 3, 1, "", null, "Technical Writing", 4 },
-                    { 25, 3, 2, "", null, "Advanced Algorithms", 5 },
-                    { 26, 3, 2, "", null, "Theory of Computation", 5 },
-                    { 27, 3, 2, "", null, "Operating Systems", 5 },
-                    { 28, 3, 2, "", null, "Computer Networks", 5 },
-                    { 29, 3, 2, "", null, "Artificial Intelligence", 5 },
-                    { 30, 3, 2, "", null, "Compiler Design", 5 },
-                    { 31, 3, 3, "", null, "Information Systems Analysis", 5 },
-                    { 32, 3, 3, "", null, "Business Process Management", 5 },
-                    { 33, 3, 3, "", null, "Database Administration", 5 },
-                    { 34, 3, 3, "", null, "Enterprise Systems", 5 },
-                    { 35, 3, 3, "", null, "Systems Security", 5 },
-                    { 36, 3, 3, "", null, "Decision Support Systems", 5 },
-                    { 37, 3, 2, "", null, "Parallel Computing", 6 },
-                    { 38, 3, 2, "", null, "Advanced Computer Networks", 6 },
-                    { 39, 3, 2, "", null, "Machine Learning", 6 },
-                    { 40, 3, 2, "", null, "Database Systems Advanced", 6 },
-                    { 41, 3, 2, "", null, "Web Technologies", 6 },
-                    { 42, 3, 2, "", null, "Human Computer Interaction", 6 },
-                    { 43, 3, 3, "", null, "E-Business Systems", 6 },
-                    { 44, 3, 3, "", null, "Knowledge Management", 6 },
-                    { 45, 3, 3, "", null, "Advanced Systems Security", 6 },
-                    { 46, 3, 3, "", null, "Big Data Analytics", 6 },
-                    { 47, 3, 3, "", null, "Cloud Computing", 6 },
-                    { 48, 3, 3, "", null, "IT Project Management", 6 },
-                    { 49, 3, 2, "", null, "Computer Graphics", 7 },
-                    { 50, 3, 2, "", null, "Cyber Security", 7 },
-                    { 51, 3, 2, "", null, "Natural Language Processing", 7 },
-                    { 52, 3, 2, "", null, "Advanced Artificial Intelligence", 7 },
-                    { 53, 3, 2, "", null, "Software Engineering Advanced", 7 },
-                    { 54, 3, 2, "", null, "Data Mining", 7 },
-                    { 55, 3, 3, "", null, "Enterprise Resource Planning", 7 },
-                    { 56, 3, 3, "", null, "Advanced Decision Support", 7 },
-                    { 57, 3, 3, "", null, "Business Intelligence", 7 },
-                    { 58, 3, 3, "", null, "Information Systems Strategy", 7 },
-                    { 59, 3, 3, "", null, "Cybersecurity for IS", 7 },
-                    { 60, 3, 3, "", null, "Mobile Systems", 7 },
-                    { 61, 3, 2, "", null, "Advanced Computer Vision", 8 },
-                    { 62, 3, 2, "", null, "Robotics", 8 },
-                    { 63, 3, 2, "", null, "Cloud Native Applications", 8 },
-                    { 64, 3, 2, "", null, "Capstone Project (CS)", 8 },
-                    { 65, 3, 2, "", null, "Advanced Data Mining", 8 },
-                    { 66, 3, 2, "", null, "Ethical Hacking", 8 },
-                    { 67, 3, 3, "", null, "Digital Transformation", 8 },
-                    { 68, 3, 3, "", null, "Information Governance", 8 },
-                    { 69, 3, 3, "", null, "Enterprise Architecture", 8 },
-                    { 70, 3, 3, "", null, "Capstone Project (IS)", 8 },
-                    { 71, 3, 3, "", null, "Advanced Business Intelligence", 8 },
-                    { 72, 3, 3, "", null, "IT Governance & Compliance", 8 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "OptionalCourses",
-                columns: new[] { "Id", "Description", "InstructorId", "IsAvailableForUniversityStudents", "MainImg", "Name", "Price", "PromoCode" },
-                values: new object[,]
-                {
-                    { 200, "Intro to C# and .NET", 100, true, "csharp.png", "C# Basics", 800m, null },
-                    { 201, "Learn EF Core ORM", 100, true, "efcore.png", "Entity Framework Core", 1200m, "PROMO10" },
-                    { 202, "Frontend development with React", 101, false, "react.png", "React Fundamentals", 1500m, null },
-                    { 203, "Learn Angular fast", 101, true, "angular.png", "Angular Crash Course", 1400m, null },
-                    { 204, "Pandas, NumPy, and basics of ML", 102, false, "python.png", "Python for Data Science", 1600m, "STUDENT20" },
-                    { 205, "Intro to ML concepts", 102, true, "ml.png", "Machine Learning 101", 2000m, null },
-                    { 206, "Wireframes & Prototyping", 103, true, "uiux.png", "UI/UX Advanced", 1300m, null },
-                    { 207, "Cross-platform apps", 103, true, "flutter.png", "Mobile Development with Flutter", 1800m, null },
-                    { 208, "Security principles and practices", 104, false, "cyber.png", "Cybersecurity Basics", 2200m, null },
-                    { 209, "Azure fundamentals", 104, true, "azure.png", "Cloud with Azure", 2100m, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -980,11 +817,6 @@ namespace DataAccess.Migrations
                 name: "IX_DoctorAssistants_AssistantId",
                 table: "DoctorAssistants",
                 column: "AssistantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DoctorAssistants_CourseId",
-                table: "DoctorAssistants",
-                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_ApplicationUserId",

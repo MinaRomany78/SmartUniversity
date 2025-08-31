@@ -18,8 +18,9 @@ namespace Entities.Models
         public ICollection<SubjectTask> Tasks { get; } = new List<SubjectTask>();
         public int? DoctorID { get; set; }
         public Doctor Doctor { get; set; } = null!;
-        //public ICollection<DoctorAssistant> DoctorAssistants { get; } = new List<DoctorAssistant>();
         public ICollection<AssistantCourse> AssistantCourses { get; } = new List<AssistantCourse>();
+        public ICollection<CommunityPost> Posts { get; } = new List<CommunityPost>();
+
         public int DepartmentID {  get; set; }
         public Department Department { get; set; }  =null!;
         public int TermId { get; set; }
