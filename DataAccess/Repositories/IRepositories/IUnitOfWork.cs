@@ -27,8 +27,14 @@ namespace DataAccess.Repositories.IRepositories
         IDepartmentRepository Departments {  get; }
         ITermRepository Terms { get; }
         IInstructorRepository Instructors { get; }
+
         IPostFileRepository PostFiles { get; }
         IPostLinkRepository PostLinks { get; }
+        
+        ICourseReviewRepository CourseReviews { get; }
+        ICartRepository Carts { get; }
+        IOrderRepository Orders { get; }
+
 
         Task<int> CompleteAsync();
     }

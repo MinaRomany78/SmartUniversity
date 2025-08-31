@@ -18,5 +18,6 @@ namespace Entities.Models
         public string DisplayText => $"{Code} - {DiscountPercent}%";
         public ICollection<Student> Students { get; } = new List<Student>();
         public ICollection<OptionalCourse> OptionalCourses { get; } = new List<OptionalCourse>();
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

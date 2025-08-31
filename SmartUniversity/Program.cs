@@ -51,6 +51,7 @@ builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<IOptionalCourseRepository, OptionalCourseRepository>();
+builder.Services.AddScoped<ICourseReviewRepository, CourseReviewRepository>();
 builder.Services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ISubjectTaskRepository, SubjectTaskRepository>();
@@ -59,8 +60,12 @@ builder.Services.AddScoped<ITaskSubmissionRepository, TaskSubmissionRepository>(
 builder.Services.AddScoped<IUniversityCourseRepository, UniversityCourseRepository>();
 builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 builder.Services.AddScoped<IUserOptionalCourseRepository, UserOptionalCourseRepository>();
+
 builder.Services.AddScoped<IPostLinkRepository, PostLinkRepository>();
 builder.Services.AddScoped<IPostFileRepository, PostFileRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
 
 // UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

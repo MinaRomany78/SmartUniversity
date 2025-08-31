@@ -27,6 +27,7 @@ namespace DataAccess.Data
         public DbSet<UniversityCourse> UniversityCourses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<OptionalCourse> OptionalCourses { get; set; }
+        public DbSet<CourseReview> CourseReviews { get; set; }
         public DbSet<UserOptionalCourse> UserOptionalCourses { get; set; }
         public DbSet<AssistantCourse> AssistantCourses { get; set; }
         public DbSet<DoctorAssistant> DoctorAssistants { get; set; }
@@ -41,6 +42,8 @@ namespace DataAccess.Data
         public DbSet<SupportTicket> SupportTickets { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Term> Terms { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -114,6 +117,21 @@ namespace DataAccess.Data
                 .WithMany(t => t.Feedbacks)
                 .HasForeignKey(f => f.TaskID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // علاقة OptionalCourse <---> CourseReview
+            builder.Entity<CourseReview>()
+                .HasOne(r => r.Course)
+                .WithMany(c => c.Reviews)
+                .HasForeignKey(r => r.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // علاقة CourseReview <---> ApplicationUser
+            builder.Entity<CourseReview>()
+                .HasOne(r => r.ApplicationUser)
+                .WithMany() // لو حابب تضيف ICollection<CourseReview> في ApplicationUser حطها هنا
+                .HasForeignKey(r => r.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             // Feedback ↔ Student (cascade ممكن نسيبها)
             builder.Entity<Feedback>()

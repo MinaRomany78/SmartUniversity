@@ -20,6 +20,7 @@ namespace DataAccess.Repositories
         public IFeedbackRepository Feedbacks { get; }
         public IMaterialRepository Materials { get; }
         public IOptionalCourseRepository OptionalCourses { get; }
+        public ICourseReviewRepository CourseReviews { get; }
         public IUserOptionalCourseRepository UserOptionalCourses { get; }
         public IPromoCodeRepository PromoCodes { get; }
         public IStudentRepository Students { get; }
@@ -33,6 +34,10 @@ namespace DataAccess.Repositories
         public IInstructorRepository Instructors { get; }
         public IPostFileRepository PostFiles { get; }
         public IPostLinkRepository PostLinks { get; }
+
+        public ICartRepository Carts { get; }
+        public IOrderRepository Orders { get; }
+
 
         public UnitOfWork(
             ApplicationDbContext context,
@@ -59,8 +64,14 @@ namespace DataAccess.Repositories
             IUniversityCourseRepository universityCourses,
             ITermRepository terms,
             IInstructorRepository instructors,
+
             IPostLinkRepository postLinks,
             IPostFileRepository postFiles
+
+            ICourseReviewRepository courseReviews,
+            ICartRepository carts,
+            IOrderRepository orders
+
             )
         {
             _context = context;
@@ -86,9 +97,16 @@ namespace DataAccess.Repositories
             Departments = departments;
             Terms = terms;
             Instructors = instructors;
+
             PostLinks = postLinks;
             PostFiles = postFiles;
             UserOptionalCourses = userOptionalCourses;
+
+            CourseReviews = courseReviews;
+            UserOptionalCourses = userOptionalCourses;
+            Carts = carts;
+            Orders = orders;
+
         }
 
         public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();
