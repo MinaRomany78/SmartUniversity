@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250830172743_addingTrafficColumnToOptionalCourses")]
-    partial class addingTrafficColumnToOptionalCourses
+    [Migration("20250831212001_initalCreate")]
+    partial class initalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,103 +142,6 @@ namespace DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "inst-user-100",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6f3c1886-55d6-4e7c-a093-7eabfe6a0d0d",
-                            Email = "ahmed@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Ahmed",
-                            FullName = "Ahmed Kamal",
-                            LastName = "Kamal",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "AHMED@TEST.COM",
-                            NormalizedUserName = "AHMED@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f1d90849-12c6-4977-bee0-050abb3c78f5",
-                            TwoFactorEnabled = false,
-                            UserName = "ahmed@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-101",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "31b374c2-0cea-4919-b93c-9c7e6e97667f",
-                            Email = "mona@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Mona",
-                            FullName = "Mona Ali",
-                            LastName = "Ali",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MONA@TEST.COM",
-                            NormalizedUserName = "MONA@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "88fbd9d9-6dad-4dea-ae02-e8c859f6d586",
-                            TwoFactorEnabled = false,
-                            UserName = "mona@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-102",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "101a4e27-755a-43b7-ae97-786301339a1f",
-                            Email = "hossam@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Hossam",
-                            FullName = "Hossam Yehia",
-                            LastName = "Yehia",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HOSSAM@TEST.COM",
-                            NormalizedUserName = "HOSSAM@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4c2e7870-a890-4d01-9c57-a31c6bdd7c15",
-                            TwoFactorEnabled = false,
-                            UserName = "hossam@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-103",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b54aebc-7676-4c47-8d1c-e4f9a58bcb71",
-                            Email = "sara@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Sara",
-                            FullName = "Sara Ibrahim",
-                            LastName = "Ibrahim",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SARA@TEST.COM",
-                            NormalizedUserName = "SARA@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "75b7dc65-37ac-45c2-b692-16c63b584270",
-                            TwoFactorEnabled = false,
-                            UserName = "sara@test.com"
-                        },
-                        new
-                        {
-                            Id = "inst-user-104",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c1113ca4-8a5d-4a84-9e91-b813236a75e8",
-                            Email = "khaled@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Khaled",
-                            FullName = "Khaled Mostafa",
-                            LastName = "Mostafa",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "KHALED@TEST.COM",
-                            NormalizedUserName = "KHALED@TEST.COM",
-                            PasswordHash = "FAKE_HASH",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d102b96-9b6a-4328-92ee-27c485602456",
-                            TwoFactorEnabled = false,
-                            UserName = "khaled@test.com"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.ApplicationUserOtp", b =>
@@ -311,6 +214,27 @@ namespace DataAccess.Migrations
                     b.ToTable("AssistantCourses");
                 });
 
+            modelBuilder.Entity("Entities.Models.Cart", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("OptionalCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppliedPromoCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ApplicationUserId", "OptionalCourseId");
+
+                    b.HasIndex("OptionalCourseId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("Entities.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -377,6 +301,9 @@ namespace DataAccess.Migrations
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UniversityCourseId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -385,7 +312,44 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("StudentId");
 
+                    b.HasIndex("UniversityCourseId");
+
                     b.ToTable("CommunityPosts");
+                });
+
+            modelBuilder.Entity("Entities.Models.CourseReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseReviews");
                 });
 
             modelBuilder.Entity("Entities.Models.Department", b =>
@@ -403,23 +367,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "General"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Computer Science"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Information Systems"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Doctor", b =>
@@ -450,14 +397,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("AssistantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorId", "AssistantId", "CourseId");
+                    b.HasKey("DoctorId", "AssistantId");
 
                     b.HasIndex("AssistantId");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("DoctorAssistants");
                 });
@@ -555,33 +497,6 @@ namespace DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Instructors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100,
-                            ApplicationUserId = "inst-user-100"
-                        },
-                        new
-                        {
-                            Id = 101,
-                            ApplicationUserId = "inst-user-101"
-                        },
-                        new
-                        {
-                            Id = 102,
-                            ApplicationUserId = "inst-user-102"
-                        },
-                        new
-                        {
-                            Id = 103,
-                            ApplicationUserId = "inst-user-103"
-                        },
-                        new
-                        {
-                            Id = 104,
-                            ApplicationUserId = "inst-user-104"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Material", b =>
@@ -655,128 +570,85 @@ namespace DataAccess.Migrations
                     b.HasIndex("PromoCode");
 
                     b.ToTable("OptionalCourses");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 300,
-                            Description = "Intro to C# and .NET",
-                            InstructorId = 101,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "csharp.png",
-                            Name = "C# Basics",
-                            Price = 800m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 301,
-                            Description = "Learn EF Core ORM",
-                            InstructorId = 101,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "efcore.png",
-                            Name = "Entity Framework Core",
-                            Price = 1200m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 302,
-                            Description = "Frontend development with React",
-                            InstructorId = 102,
-                            IsAvailableForUniversityStudents = false,
-                            MainImg = "react.png",
-                            Name = "React Fundamentals",
-                            Price = 1500m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 303,
-                            Description = "Learn Angular fast",
-                            InstructorId = 102,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "angular.png",
-                            Name = "Angular Crash Course",
-                            Price = 1400m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 304,
-                            Description = "Pandas, NumPy, and basics of ML",
-                            InstructorId = 103,
-                            IsAvailableForUniversityStudents = false,
-                            MainImg = "python.png",
-                            Name = "Python for Data Science",
-                            Price = 1600m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 305,
-                            Description = "Intro to ML concepts",
-                            InstructorId = 103,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "ml.png",
-                            Name = "Machine Learning 101",
-                            Price = 2000m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 306,
-                            Description = "Wireframes & Prototyping",
-                            InstructorId = 104,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "uiux.png",
-                            Name = "UI/UX Advanced",
-                            Price = 1300m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 307,
-                            Description = "Cross-platform apps",
-                            InstructorId = 104,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "flutter.png",
-                            Name = "Mobile Development with Flutter",
-                            Price = 1800m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 308,
-                            Description = "Security principles and practices",
-                            InstructorId = 100,
-                            IsAvailableForUniversityStudents = false,
-                            MainImg = "cyber.png",
-                            Name = "Cybersecurity Basics",
-                            Price = 2200m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        },
-                        new
-                        {
-                            Id = 309,
-                            Description = "Azure fundamentals",
-                            InstructorId = 100,
-                            IsAvailableForUniversityStudents = true,
-                            MainImg = "azure.png",
-                            Name = "Cloud with Azure",
-                            Price = 2100m,
-                            PromoCode = "PROMO10",
-                            Traffic = 0
-                        });
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OptionalCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PricePaid")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PromoCodeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("OptionalCourseId");
+
+                    b.HasIndex("PromoCodeId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostFiles");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostLinks");
                 });
 
             modelBuilder.Entity("Entities.Models.PromoCode", b =>
@@ -793,20 +665,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Code");
 
                     b.ToTable("PromoCodes");
-
-                    b.HasData(
-                        new
-                        {
-                            Code = "PROMO10",
-                            DiscountPercent = 10m,
-                            IsForUniversityStudentsOnly = false
-                        },
-                        new
-                        {
-                            Code = "STUDENT20",
-                            DiscountPercent = 20m,
-                            IsForUniversityStudentsOnly = true
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Student", b =>
@@ -974,56 +832,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Terms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            TermNumber = 1,
-                            Year = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            TermNumber = 2,
-                            Year = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            TermNumber = 1,
-                            Year = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            TermNumber = 2,
-                            Year = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            TermNumber = 1,
-                            Year = 3
-                        },
-                        new
-                        {
-                            Id = 6,
-                            TermNumber = 2,
-                            Year = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            TermNumber = 1,
-                            Year = 4
-                        },
-                        new
-                        {
-                            Id = 8,
-                            TermNumber = 2,
-                            Year = 4
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.UniversityCourse", b =>
@@ -1063,656 +871,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("TermId");
 
                     b.ToTable("UniversityCourses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Mathematics 1",
-                            TermId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Programming Basics",
-                            TermId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Physics 1",
-                            TermId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "English 1",
-                            TermId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Introduction to IT",
-                            TermId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Critical Thinking",
-                            TermId = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Mathematics 2",
-                            TermId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Object Oriented Programming",
-                            TermId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Physics 2",
-                            TermId = 2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "English 2",
-                            TermId = 2
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Introduction to Database",
-                            TermId = 2
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Communication Skills",
-                            TermId = 2
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Mathematics 3",
-                            TermId = 3
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Data Structures",
-                            TermId = 3
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Computer Organization",
-                            TermId = 3
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Probability & Statistics",
-                            TermId = 3
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Operating Systems Basics",
-                            TermId = 3
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Ethics",
-                            TermId = 3
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Mathematics 4",
-                            TermId = 4
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Algorithms",
-                            TermId = 4
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Digital Logic",
-                            TermId = 4
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Software Engineering Basics",
-                            TermId = 4
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Database Systems",
-                            TermId = 4
-                        },
-                        new
-                        {
-                            Id = 24,
-                            CreditHours = 3,
-                            DepartmentID = 1,
-                            Description = "",
-                            Name = "Technical Writing",
-                            TermId = 4
-                        },
-                        new
-                        {
-                            Id = 25,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Advanced Algorithms",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 26,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Theory of Computation",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 27,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Operating Systems",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 28,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Computer Networks",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 29,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Artificial Intelligence",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 30,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Compiler Design",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 31,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Information Systems Analysis",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 32,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Business Process Management",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 33,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Database Administration",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 34,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Enterprise Systems",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 35,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Systems Security",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 36,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Decision Support Systems",
-                            TermId = 5
-                        },
-                        new
-                        {
-                            Id = 37,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Parallel Computing",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 38,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Advanced Computer Networks",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 39,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Machine Learning",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 40,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Database Systems Advanced",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 41,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Web Technologies",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 42,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Human Computer Interaction",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 43,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "E-Business Systems",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 44,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Knowledge Management",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 45,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Advanced Systems Security",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 46,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Big Data Analytics",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 47,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Cloud Computing",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 48,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "IT Project Management",
-                            TermId = 6
-                        },
-                        new
-                        {
-                            Id = 49,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Computer Graphics",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 50,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Cyber Security",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 51,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Natural Language Processing",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 52,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Advanced Artificial Intelligence",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 53,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Software Engineering Advanced",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 54,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Data Mining",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 55,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Enterprise Resource Planning",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 56,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Advanced Decision Support",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 57,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Business Intelligence",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 58,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Information Systems Strategy",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 59,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Cybersecurity for IS",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 60,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Mobile Systems",
-                            TermId = 7
-                        },
-                        new
-                        {
-                            Id = 61,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Advanced Computer Vision",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 62,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Robotics",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 63,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Cloud Native Applications",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 64,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Capstone Project (CS)",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 65,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Advanced Data Mining",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 66,
-                            CreditHours = 3,
-                            DepartmentID = 2,
-                            Description = "",
-                            Name = "Ethical Hacking",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 67,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Digital Transformation",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 68,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Information Governance",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 69,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Enterprise Architecture",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 70,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Capstone Project (IS)",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 71,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "Advanced Business Intelligence",
-                            TermId = 8
-                        },
-                        new
-                        {
-                            Id = 72,
-                            CreditHours = 3,
-                            DepartmentID = 3,
-                            Description = "",
-                            Name = "IT Governance & Compliance",
-                            TermId = 8
-                        });
                 });
 
             modelBuilder.Entity("Entities.Models.UserOptionalCourse", b =>
@@ -1915,6 +1073,25 @@ namespace DataAccess.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("Entities.Models.Cart", b =>
+                {
+                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.OptionalCourse", "OptionalCourse")
+                        .WithMany()
+                        .HasForeignKey("OptionalCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("OptionalCourse");
+                });
+
             modelBuilder.Entity("Entities.Models.Comment", b =>
                 {
                     b.HasOne("Entities.Models.Assistant", null)
@@ -1960,9 +1137,32 @@ namespace DataAccess.Migrations
                         .WithMany("CommunityPosts")
                         .HasForeignKey("StudentId");
 
+                    b.HasOne("Entities.Models.UniversityCourse", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("UniversityCourseId");
+
                     b.Navigation("Author");
 
                     b.Navigation("UniversityCourse");
+                });
+
+            modelBuilder.Entity("Entities.Models.CourseReview", b =>
+                {
+                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.OptionalCourse", "Course")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Entities.Models.Doctor", b =>
@@ -1984,12 +1184,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.UniversityCourse", "Course")
-                        .WithMany("DoctorAssistants")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("DoctorAssistants")
                         .HasForeignKey("DoctorId")
@@ -1997,8 +1191,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Assistant");
-
-                    b.Navigation("Course");
 
                     b.Navigation("Doctor");
                 });
@@ -2086,6 +1278,53 @@ namespace DataAccess.Migrations
                     b.Navigation("Instructor");
 
                     b.Navigation("PromoCodeEntity");
+                });
+
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.OptionalCourse", "OptionalCourse")
+                        .WithMany()
+                        .HasForeignKey("OptionalCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.PromoCode", "PromoCode")
+                        .WithMany("Orders")
+                        .HasForeignKey("PromoCodeId");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("OptionalCourse");
+
+                    b.Navigation("PromoCode");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostFile", b =>
+                {
+                    b.HasOne("Entities.Models.CommunityPost", "Post")
+                        .WithMany("Files")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostLink", b =>
+                {
+                    b.HasOne("Entities.Models.CommunityPost", "Post")
+                        .WithMany("Links")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Entities.Models.Student", b =>
@@ -2285,6 +1524,10 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Models.CommunityPost", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Files");
+
+                    b.Navigation("Links");
                 });
 
             modelBuilder.Entity("Entities.Models.Department", b =>
@@ -2308,9 +1551,16 @@ namespace DataAccess.Migrations
                     b.Navigation("OptionalCourses");
                 });
 
+            modelBuilder.Entity("Entities.Models.OptionalCourse", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
             modelBuilder.Entity("Entities.Models.PromoCode", b =>
                 {
                     b.Navigation("OptionalCourses");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("Students");
                 });
@@ -2344,11 +1594,11 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("AssistantCourses");
 
-                    b.Navigation("DoctorAssistants");
-
                     b.Navigation("Enrollments");
 
                     b.Navigation("Materials");
+
+                    b.Navigation("Posts");
 
                     b.Navigation("Tasks");
                 });

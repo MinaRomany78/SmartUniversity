@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initalCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -430,6 +430,7 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainImg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Traffic = table.Column<int>(type: "int", nullable: false),
                     IsAvailableForUniversityStudents = table.Column<bool>(type: "bit", nullable: false),
                     PromoCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     InstructorId = table.Column<int>(type: "int", nullable: false)
@@ -484,7 +485,8 @@ namespace DataAccess.Migrations
                     AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: true)
+                    StudentId = table.Column<int>(type: "int", nullable: true),
+                    UniversityCourseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -505,6 +507,11 @@ namespace DataAccess.Migrations
                         principalTable: "UniversityCourses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommunityPosts_UniversityCourses_UniversityCourseId",
+                        column: x => x.UniversityCourseId,
+                        principalTable: "UniversityCourses",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -590,6 +597,95 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OptionalCourseId = table.Column<int>(type: "int", nullable: false),
+                    AppliedPromoCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => new { x.ApplicationUserId, x.OptionalCourseId });
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Carts_OptionalCourses_OptionalCourseId",
+                        column: x => x.OptionalCourseId,
+                        principalTable: "OptionalCourses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CourseReviews_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseReviews_OptionalCourses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "OptionalCourses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OptionalCourseId = table.Column<int>(type: "int", nullable: false),
+                    PricePaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PromoCodeId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_OptionalCourses_OptionalCourseId",
+                        column: x => x.OptionalCourseId,
+                        principalTable: "OptionalCourses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Orders_PromoCodes_PromoCodeId",
+                        column: x => x.PromoCodeId,
+                        principalTable: "PromoCodes",
+                        principalColumn: "Code");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserOptionalCourses",
                 columns: table => new
                 {
@@ -658,6 +754,46 @@ namespace DataAccess.Migrations
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostFiles_CommunityPosts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "CommunityPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostLinks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostLinks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostLinks_CommunityPosts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "CommunityPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -779,6 +915,11 @@ namespace DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carts_OptionalCourseId",
+                table: "Carts",
+                column: "OptionalCourseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_AssistantId",
                 table: "Comments",
                 column: "AssistantId");
@@ -812,6 +953,21 @@ namespace DataAccess.Migrations
                 name: "IX_CommunityPosts_StudentId",
                 table: "CommunityPosts",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommunityPosts_UniversityCourseId",
+                table: "CommunityPosts",
+                column: "UniversityCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseReviews_ApplicationUserId",
+                table: "CourseReviews",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseReviews_CourseId",
+                table: "CourseReviews",
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorAssistants_AssistantId",
@@ -869,6 +1025,31 @@ namespace DataAccess.Migrations
                 name: "IX_OptionalCourses_PromoCode",
                 table: "OptionalCourses",
                 column: "PromoCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ApplicationUserId",
+                table: "Orders",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OptionalCourseId",
+                table: "Orders",
+                column: "OptionalCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PromoCodeId",
+                table: "Orders",
+                column: "PromoCodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostFiles_PostId",
+                table: "PostFiles",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostLinks_PostId",
+                table: "PostLinks",
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_ApplicationUserId",
@@ -965,7 +1146,13 @@ namespace DataAccess.Migrations
                 name: "AssistantCourses");
 
             migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "CourseReviews");
 
             migrationBuilder.DropTable(
                 name: "DoctorAssistants");
@@ -980,6 +1167,15 @@ namespace DataAccess.Migrations
                 name: "Materials");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "PostFiles");
+
+            migrationBuilder.DropTable(
+                name: "PostLinks");
+
+            migrationBuilder.DropTable(
                 name: "SupportTickets");
 
             migrationBuilder.DropTable(
@@ -992,10 +1188,10 @@ namespace DataAccess.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "CommunityPosts");
+                name: "Assistants");
 
             migrationBuilder.DropTable(
-                name: "Assistants");
+                name: "CommunityPosts");
 
             migrationBuilder.DropTable(
                 name: "SubjectTasks");

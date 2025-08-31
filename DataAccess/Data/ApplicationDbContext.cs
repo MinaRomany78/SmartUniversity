@@ -39,7 +39,7 @@ namespace DataAccess.Data
         public DbSet<CommunityPost> CommunityPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostFile> PostFiles { get; set; }
-        public DbSet<PostLink> PostLinks {  get; set; }
+        public DbSet<PostLink> PostLinks { get; set; }
         public DbSet<SupportTicket> SupportTickets { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Term> Terms { get; set; }
@@ -158,7 +158,7 @@ namespace DataAccess.Data
                 new Term { Id = 8, Year = 4, TermNumber = 2 }
             );
             builder.Entity<UniversityCourse>().HasData(
-               // ---- Year 1 Term 1 (General)
+                // ---- Year 1 Term 1 (General)
                 new UniversityCourse { Id = 1, Name = "Mathematics 1", CreditHours = 3, DepartmentID = 1, TermId = 1, DoctorID = 1 },
                 new UniversityCourse { Id = 2, Name = "Programming Basics", CreditHours = 3, DepartmentID = 1, TermId = 1, DoctorID = 2 },
                 new UniversityCourse { Id = 3, Name = "Physics 1", CreditHours = 3, DepartmentID = 1, TermId = 1, DoctorID = 3 },
@@ -285,7 +285,7 @@ namespace DataAccess.Data
                 new OptionalCourse { Id = 300, Name = "C# Basics", Description = "Intro to C# and .NET", MainImg = "csharp.png", Price = 800, IsAvailableForUniversityStudents = true, InstructorId = 101, PromoCode = "PROMO10" },
                 new OptionalCourse { Id = 301, Name = "Entity Framework Core", Description = "Learn EF Core ORM", MainImg = "efcore.png", Price = 1200, IsAvailableForUniversityStudents = true, InstructorId = 101, PromoCode = "PROMO10" },
                 new OptionalCourse { Id = 302, Name = "React Fundamentals", Description = "Frontend development with React", MainImg = "react.png", Price = 1500, IsAvailableForUniversityStudents = false, InstructorId = 102, PromoCode = "PROMO10" },
-                new OptionalCourse { Id = 303, Name = "Angular Crash Course", Description = "Learn Angular fast", MainImg = "angular.png", Price = 1400, IsAvailableForUniversityStudents = true, InstructorId = 102 , PromoCode = "PROMO10" },
+                new OptionalCourse { Id = 303, Name = "Angular Crash Course", Description = "Learn Angular fast", MainImg = "angular.png", Price = 1400, IsAvailableForUniversityStudents = true, InstructorId = 102, PromoCode = "PROMO10" },
                 new OptionalCourse { Id = 304, Name = "Python for Data Science", Description = "Pandas, NumPy, and basics of ML", MainImg = "python.png", Price = 1600, IsAvailableForUniversityStudents = false, InstructorId = 103, PromoCode = "PROMO10" },
                 new OptionalCourse { Id = 305, Name = "Machine Learning 101", Description = "Intro to ML concepts", MainImg = "ml.png", Price = 2000, IsAvailableForUniversityStudents = true, InstructorId = 103, PromoCode = "PROMO10" },
                 new OptionalCourse { Id = 306, Name = "UI/UX Advanced", Description = "Wireframes & Prototyping", MainImg = "uiux.png", Price = 1300, IsAvailableForUniversityStudents = true, InstructorId = 104, PromoCode = "PROMO10" },
@@ -511,7 +511,7 @@ namespace DataAccess.Data
                  new AssistantCourse { AssistantId = 6, CourseId = 72 }
              );
             builder.Entity<DoctorAssistant>().HasData(
-              // Doctor 1
+                // Doctor 1
                 new DoctorAssistant { DoctorId = 1, AssistantId = 11 },
                 new DoctorAssistant { DoctorId = 1, AssistantId = 4 },
                 new DoctorAssistant { DoctorId = 1, AssistantId = 6 },

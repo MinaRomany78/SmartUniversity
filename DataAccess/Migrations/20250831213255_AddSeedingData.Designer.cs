@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250830180735_addingCourseReviewModel")]
-    partial class addingCourseReviewModel
+    [Migration("20250831213255_AddSeedingData")]
+    partial class AddSeedingData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,7 +148,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-100",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "10d81547-307a-47e1-860c-8221c9942bd9",
+                            ConcurrencyStamp = "0f1970c0-2be8-41a8-b2f3-ffe05c4a20b1",
                             Email = "ahmed@test.com",
                             EmailConfirmed = true,
                             FirstName = "Ahmed",
@@ -159,7 +159,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "AHMED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fc1ce51c-8bf0-4dc1-a59e-20675084341c",
+                            SecurityStamp = "d51abbc8-a862-4534-b89b-298511d8271d",
                             TwoFactorEnabled = false,
                             UserName = "ahmed@test.com"
                         },
@@ -167,7 +167,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-101",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "11167b64-edce-4dd8-bf40-c59388a94a9d",
+                            ConcurrencyStamp = "29dc64be-87ae-45dc-9a10-cf89fea92dbd",
                             Email = "mona@test.com",
                             EmailConfirmed = true,
                             FirstName = "Mona",
@@ -178,7 +178,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "MONA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4daa4b46-1232-4f61-a30f-c800f024234e",
+                            SecurityStamp = "46fb1ae8-c688-491c-bf84-98077ced6f39",
                             TwoFactorEnabled = false,
                             UserName = "mona@test.com"
                         },
@@ -186,7 +186,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-102",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ebb73bbd-de1b-4e4b-9727-a6a2b345d5d1",
+                            ConcurrencyStamp = "69d27210-13a6-4205-b811-19872d14de0a",
                             Email = "hossam@test.com",
                             EmailConfirmed = true,
                             FirstName = "Hossam",
@@ -197,7 +197,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "HOSSAM@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7895cdd4-e424-406d-a57d-069e5bf4b8a9",
+                            SecurityStamp = "d8eda9b2-6125-4238-adc4-c8fc988e8e10",
                             TwoFactorEnabled = false,
                             UserName = "hossam@test.com"
                         },
@@ -205,7 +205,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-103",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "adbc88e6-708d-497b-99b0-51ed771d746d",
+                            ConcurrencyStamp = "3ca6f5e3-318f-4497-911a-b5842d2bfe4c",
                             Email = "sara@test.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
@@ -216,7 +216,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "SARA@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f0872df3-3fdb-448a-bf10-dd72d29d6649",
+                            SecurityStamp = "d6eba840-411c-43b3-9531-1c1f98c68519",
                             TwoFactorEnabled = false,
                             UserName = "sara@test.com"
                         },
@@ -224,7 +224,7 @@ namespace DataAccess.Migrations
                         {
                             Id = "inst-user-104",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41c1ea76-e072-4659-bf01-1cbb84900c66",
+                            ConcurrencyStamp = "49361402-ecef-458d-b3a7-ed13b1495bdf",
                             Email = "khaled@test.com",
                             EmailConfirmed = true,
                             FirstName = "Khaled",
@@ -235,7 +235,7 @@ namespace DataAccess.Migrations
                             NormalizedUserName = "KHALED@TEST.COM",
                             PasswordHash = "FAKE_HASH",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5c19914b-d53c-487d-81c5-286a3c7ecc09",
+                            SecurityStamp = "1cd7e3a2-8e57-4ec2-8b77-df89cdca8cd4",
                             TwoFactorEnabled = false,
                             UserName = "khaled@test.com"
                         });
@@ -309,6 +309,749 @@ namespace DataAccess.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("AssistantCourses");
+
+                    b.HasData(
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 4
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 4
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 5
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 5
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 6
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 6
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 7
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 7
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 8
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 8
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 9
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 9
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 10
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 10
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 11
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 11
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 12
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 12
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 13
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 13
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 14
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 14
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 15
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 15
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 16
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 16
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 17
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 17
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 18
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 18
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 19
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 19
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 20
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 20
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 21
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 21
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 22
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 22
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 23
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 23
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 24
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 24
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 25
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 25
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 26
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 26
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 27
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 27
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 28
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 28
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 29
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 29
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 30
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 30
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 31
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 31
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 32
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 32
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 33
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 33
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 34
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 34
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 35
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 35
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 36
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 36
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 37
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 37
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 38
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 38
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 39
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 39
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 40
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 40
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 41
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 41
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 42
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 42
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 43
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 43
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 44
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 44
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 45
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 45
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 46
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 46
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 47
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 47
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 48
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 48
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 49
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 49
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 50
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 50
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 51
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 51
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 52
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 52
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 53
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 53
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 54
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 54
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 55
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 55
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 56
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 56
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 57
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 57
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 58
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 58
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 59
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 59
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 60
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 60
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 61
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 61
+                        },
+                        new
+                        {
+                            AssistantId = 1,
+                            CourseId = 62
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 62
+                        },
+                        new
+                        {
+                            AssistantId = 12,
+                            CourseId = 63
+                        },
+                        new
+                        {
+                            AssistantId = 4,
+                            CourseId = 63
+                        },
+                        new
+                        {
+                            AssistantId = 8,
+                            CourseId = 64
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 64
+                        },
+                        new
+                        {
+                            AssistantId = 10,
+                            CourseId = 65
+                        },
+                        new
+                        {
+                            AssistantId = 5,
+                            CourseId = 65
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 66
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 66
+                        },
+                        new
+                        {
+                            AssistantId = 13,
+                            CourseId = 67
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 67
+                        },
+                        new
+                        {
+                            AssistantId = 11,
+                            CourseId = 68
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 68
+                        },
+                        new
+                        {
+                            AssistantId = 14,
+                            CourseId = 69
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 69
+                        },
+                        new
+                        {
+                            AssistantId = 2,
+                            CourseId = 70
+                        },
+                        new
+                        {
+                            AssistantId = 9,
+                            CourseId = 70
+                        },
+                        new
+                        {
+                            AssistantId = 7,
+                            CourseId = 71
+                        },
+                        new
+                        {
+                            AssistantId = 15,
+                            CourseId = 71
+                        },
+                        new
+                        {
+                            AssistantId = 3,
+                            CourseId = 72
+                        },
+                        new
+                        {
+                            AssistantId = 6,
+                            CourseId = 72
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Cart", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("OptionalCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppliedPromoCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ApplicationUserId", "OptionalCourseId");
+
+                    b.HasIndex("OptionalCourseId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Entities.Models.Comment", b =>
@@ -377,6 +1120,9 @@ namespace DataAccess.Migrations
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UniversityCourseId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -384,6 +1130,8 @@ namespace DataAccess.Migrations
                     b.HasIndex("CourseID");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("UniversityCourseId");
 
                     b.ToTable("CommunityPosts");
                 });
@@ -485,16 +1233,318 @@ namespace DataAccess.Migrations
                     b.Property<int>("AssistantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorId", "AssistantId", "CourseId");
+                    b.HasKey("DoctorId", "AssistantId");
 
                     b.HasIndex("AssistantId");
 
-                    b.HasIndex("CourseId");
-
                     b.ToTable("DoctorAssistants");
+
+                    b.HasData(
+                        new
+                        {
+                            DoctorId = 1,
+                            AssistantId = 11
+                        },
+                        new
+                        {
+                            DoctorId = 1,
+                            AssistantId = 4
+                        },
+                        new
+                        {
+                            DoctorId = 1,
+                            AssistantId = 6
+                        },
+                        new
+                        {
+                            DoctorId = 1,
+                            AssistantId = 1
+                        },
+                        new
+                        {
+                            DoctorId = 1,
+                            AssistantId = 9
+                        },
+                        new
+                        {
+                            DoctorId = 2,
+                            AssistantId = 7
+                        },
+                        new
+                        {
+                            DoctorId = 2,
+                            AssistantId = 10
+                        },
+                        new
+                        {
+                            DoctorId = 2,
+                            AssistantId = 9
+                        },
+                        new
+                        {
+                            DoctorId = 2,
+                            AssistantId = 13
+                        },
+                        new
+                        {
+                            DoctorId = 3,
+                            AssistantId = 2
+                        },
+                        new
+                        {
+                            DoctorId = 3,
+                            AssistantId = 15
+                        },
+                        new
+                        {
+                            DoctorId = 3,
+                            AssistantId = 3
+                        },
+                        new
+                        {
+                            DoctorId = 3,
+                            AssistantId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 4,
+                            AssistantId = 7
+                        },
+                        new
+                        {
+                            DoctorId = 4,
+                            AssistantId = 13
+                        },
+                        new
+                        {
+                            DoctorId = 4,
+                            AssistantId = 5
+                        },
+                        new
+                        {
+                            DoctorId = 4,
+                            AssistantId = 14
+                        },
+                        new
+                        {
+                            DoctorId = 5,
+                            AssistantId = 5
+                        },
+                        new
+                        {
+                            DoctorId = 5,
+                            AssistantId = 15
+                        },
+                        new
+                        {
+                            DoctorId = 5,
+                            AssistantId = 1
+                        },
+                        new
+                        {
+                            DoctorId = 5,
+                            AssistantId = 8
+                        },
+                        new
+                        {
+                            DoctorId = 6,
+                            AssistantId = 8
+                        },
+                        new
+                        {
+                            DoctorId = 6,
+                            AssistantId = 6
+                        },
+                        new
+                        {
+                            DoctorId = 6,
+                            AssistantId = 3
+                        },
+                        new
+                        {
+                            DoctorId = 6,
+                            AssistantId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 7,
+                            AssistantId = 14
+                        },
+                        new
+                        {
+                            DoctorId = 7,
+                            AssistantId = 1
+                        },
+                        new
+                        {
+                            DoctorId = 7,
+                            AssistantId = 9
+                        },
+                        new
+                        {
+                            DoctorId = 7,
+                            AssistantId = 10
+                        },
+                        new
+                        {
+                            DoctorId = 8,
+                            AssistantId = 15
+                        },
+                        new
+                        {
+                            DoctorId = 8,
+                            AssistantId = 9
+                        },
+                        new
+                        {
+                            DoctorId = 8,
+                            AssistantId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 8,
+                            AssistantId = 11
+                        },
+                        new
+                        {
+                            DoctorId = 9,
+                            AssistantId = 10
+                        },
+                        new
+                        {
+                            DoctorId = 9,
+                            AssistantId = 3
+                        },
+                        new
+                        {
+                            DoctorId = 9,
+                            AssistantId = 8
+                        },
+                        new
+                        {
+                            DoctorId = 9,
+                            AssistantId = 7
+                        },
+                        new
+                        {
+                            DoctorId = 10,
+                            AssistantId = 2
+                        },
+                        new
+                        {
+                            DoctorId = 10,
+                            AssistantId = 5
+                        },
+                        new
+                        {
+                            DoctorId = 10,
+                            AssistantId = 15
+                        },
+                        new
+                        {
+                            DoctorId = 10,
+                            AssistantId = 14
+                        },
+                        new
+                        {
+                            DoctorId = 11,
+                            AssistantId = 11
+                        },
+                        new
+                        {
+                            DoctorId = 11,
+                            AssistantId = 8
+                        },
+                        new
+                        {
+                            DoctorId = 11,
+                            AssistantId = 6
+                        },
+                        new
+                        {
+                            DoctorId = 11,
+                            AssistantId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 12,
+                            AssistantId = 13
+                        },
+                        new
+                        {
+                            DoctorId = 12,
+                            AssistantId = 4
+                        },
+                        new
+                        {
+                            DoctorId = 12,
+                            AssistantId = 14
+                        },
+                        new
+                        {
+                            DoctorId = 12,
+                            AssistantId = 9
+                        },
+                        new
+                        {
+                            DoctorId = 13,
+                            AssistantId = 11
+                        },
+                        new
+                        {
+                            DoctorId = 13,
+                            AssistantId = 7
+                        },
+                        new
+                        {
+                            DoctorId = 13,
+                            AssistantId = 13
+                        },
+                        new
+                        {
+                            DoctorId = 13,
+                            AssistantId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 14,
+                            AssistantId = 12
+                        },
+                        new
+                        {
+                            DoctorId = 14,
+                            AssistantId = 15
+                        },
+                        new
+                        {
+                            DoctorId = 14,
+                            AssistantId = 4
+                        },
+                        new
+                        {
+                            DoctorId = 14,
+                            AssistantId = 6
+                        },
+                        new
+                        {
+                            DoctorId = 15,
+                            AssistantId = 14
+                        },
+                        new
+                        {
+                            DoctorId = 15,
+                            AssistantId = 6
+                        },
+                        new
+                        {
+                            DoctorId = 15,
+                            AssistantId = 1
+                        },
+                        new
+                        {
+                            DoctorId = 15,
+                            AssistantId = 15
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Enrollment", b =>
@@ -814,6 +1864,85 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OptionalCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PricePaid")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PromoCodeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("OptionalCourseId");
+
+                    b.HasIndex("PromoCodeId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostFiles");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostLinks");
+                });
+
             modelBuilder.Entity("Entities.Models.PromoCode", b =>
                 {
                     b.Property<string>("Code")
@@ -1106,6 +2235,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 1,
                             Name = "Mathematics 1",
                             TermId = 1
                         },
@@ -1115,6 +2245,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 2,
                             Name = "Programming Basics",
                             TermId = 1
                         },
@@ -1124,6 +2255,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 3,
                             Name = "Physics 1",
                             TermId = 1
                         },
@@ -1133,6 +2265,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 4,
                             Name = "English 1",
                             TermId = 1
                         },
@@ -1142,6 +2275,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 5,
                             Name = "Introduction to IT",
                             TermId = 1
                         },
@@ -1151,6 +2285,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 6,
                             Name = "Critical Thinking",
                             TermId = 1
                         },
@@ -1160,6 +2295,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 7,
                             Name = "Mathematics 2",
                             TermId = 2
                         },
@@ -1169,6 +2305,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 8,
                             Name = "Object Oriented Programming",
                             TermId = 2
                         },
@@ -1178,6 +2315,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 9,
                             Name = "Physics 2",
                             TermId = 2
                         },
@@ -1187,6 +2325,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 10,
                             Name = "English 2",
                             TermId = 2
                         },
@@ -1196,6 +2335,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 11,
                             Name = "Introduction to Database",
                             TermId = 2
                         },
@@ -1205,6 +2345,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 12,
                             Name = "Communication Skills",
                             TermId = 2
                         },
@@ -1214,6 +2355,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 13,
                             Name = "Mathematics 3",
                             TermId = 3
                         },
@@ -1223,6 +2365,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 14,
                             Name = "Data Structures",
                             TermId = 3
                         },
@@ -1232,6 +2375,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 15,
                             Name = "Computer Organization",
                             TermId = 3
                         },
@@ -1241,6 +2385,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 1,
                             Name = "Probability & Statistics",
                             TermId = 3
                         },
@@ -1250,6 +2395,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 2,
                             Name = "Operating Systems Basics",
                             TermId = 3
                         },
@@ -1259,6 +2405,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 3,
                             Name = "Ethics",
                             TermId = 3
                         },
@@ -1268,6 +2415,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 4,
                             Name = "Mathematics 4",
                             TermId = 4
                         },
@@ -1277,6 +2425,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 5,
                             Name = "Algorithms",
                             TermId = 4
                         },
@@ -1286,6 +2435,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 6,
                             Name = "Digital Logic",
                             TermId = 4
                         },
@@ -1295,6 +2445,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 7,
                             Name = "Software Engineering Basics",
                             TermId = 4
                         },
@@ -1304,6 +2455,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 8,
                             Name = "Database Systems",
                             TermId = 4
                         },
@@ -1313,6 +2465,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 1,
                             Description = "",
+                            DoctorID = 9,
                             Name = "Technical Writing",
                             TermId = 4
                         },
@@ -1322,6 +2475,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 10,
                             Name = "Advanced Algorithms",
                             TermId = 5
                         },
@@ -1331,6 +2485,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 11,
                             Name = "Theory of Computation",
                             TermId = 5
                         },
@@ -1340,6 +2495,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 12,
                             Name = "Operating Systems",
                             TermId = 5
                         },
@@ -1349,6 +2505,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 13,
                             Name = "Computer Networks",
                             TermId = 5
                         },
@@ -1358,6 +2515,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 14,
                             Name = "Artificial Intelligence",
                             TermId = 5
                         },
@@ -1367,6 +2525,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 15,
                             Name = "Compiler Design",
                             TermId = 5
                         },
@@ -1376,6 +2535,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 1,
                             Name = "Information Systems Analysis",
                             TermId = 5
                         },
@@ -1385,6 +2545,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 2,
                             Name = "Business Process Management",
                             TermId = 5
                         },
@@ -1394,6 +2555,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 3,
                             Name = "Database Administration",
                             TermId = 5
                         },
@@ -1403,6 +2565,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 4,
                             Name = "Enterprise Systems",
                             TermId = 5
                         },
@@ -1412,6 +2575,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 5,
                             Name = "Systems Security",
                             TermId = 5
                         },
@@ -1421,6 +2585,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 6,
                             Name = "Decision Support Systems",
                             TermId = 5
                         },
@@ -1430,6 +2595,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 7,
                             Name = "Parallel Computing",
                             TermId = 6
                         },
@@ -1439,6 +2605,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 8,
                             Name = "Advanced Computer Networks",
                             TermId = 6
                         },
@@ -1448,6 +2615,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 9,
                             Name = "Machine Learning",
                             TermId = 6
                         },
@@ -1457,6 +2625,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 10,
                             Name = "Database Systems Advanced",
                             TermId = 6
                         },
@@ -1466,6 +2635,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 11,
                             Name = "Web Technologies",
                             TermId = 6
                         },
@@ -1475,6 +2645,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 12,
                             Name = "Human Computer Interaction",
                             TermId = 6
                         },
@@ -1484,6 +2655,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 13,
                             Name = "E-Business Systems",
                             TermId = 6
                         },
@@ -1493,6 +2665,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 14,
                             Name = "Knowledge Management",
                             TermId = 6
                         },
@@ -1502,6 +2675,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 15,
                             Name = "Advanced Systems Security",
                             TermId = 6
                         },
@@ -1511,6 +2685,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 1,
                             Name = "Big Data Analytics",
                             TermId = 6
                         },
@@ -1520,6 +2695,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 2,
                             Name = "Cloud Computing",
                             TermId = 6
                         },
@@ -1529,6 +2705,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 3,
                             Name = "IT Project Management",
                             TermId = 6
                         },
@@ -1538,6 +2715,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 4,
                             Name = "Computer Graphics",
                             TermId = 7
                         },
@@ -1547,6 +2725,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 5,
                             Name = "Cyber Security",
                             TermId = 7
                         },
@@ -1556,6 +2735,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 6,
                             Name = "Natural Language Processing",
                             TermId = 7
                         },
@@ -1565,6 +2745,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 7,
                             Name = "Advanced Artificial Intelligence",
                             TermId = 7
                         },
@@ -1574,6 +2755,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 8,
                             Name = "Software Engineering Advanced",
                             TermId = 7
                         },
@@ -1583,6 +2765,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 9,
                             Name = "Data Mining",
                             TermId = 7
                         },
@@ -1592,6 +2775,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 10,
                             Name = "Enterprise Resource Planning",
                             TermId = 7
                         },
@@ -1601,6 +2785,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 11,
                             Name = "Advanced Decision Support",
                             TermId = 7
                         },
@@ -1610,6 +2795,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 12,
                             Name = "Business Intelligence",
                             TermId = 7
                         },
@@ -1619,6 +2805,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 13,
                             Name = "Information Systems Strategy",
                             TermId = 7
                         },
@@ -1628,6 +2815,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 14,
                             Name = "Cybersecurity for IS",
                             TermId = 7
                         },
@@ -1637,6 +2825,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 15,
                             Name = "Mobile Systems",
                             TermId = 7
                         },
@@ -1646,6 +2835,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 1,
                             Name = "Advanced Computer Vision",
                             TermId = 8
                         },
@@ -1655,6 +2845,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 2,
                             Name = "Robotics",
                             TermId = 8
                         },
@@ -1664,6 +2855,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 3,
                             Name = "Cloud Native Applications",
                             TermId = 8
                         },
@@ -1673,6 +2865,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 4,
                             Name = "Capstone Project (CS)",
                             TermId = 8
                         },
@@ -1682,6 +2875,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 5,
                             Name = "Advanced Data Mining",
                             TermId = 8
                         },
@@ -1691,6 +2885,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 2,
                             Description = "",
+                            DoctorID = 6,
                             Name = "Ethical Hacking",
                             TermId = 8
                         },
@@ -1700,6 +2895,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 7,
                             Name = "Digital Transformation",
                             TermId = 8
                         },
@@ -1709,6 +2905,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 8,
                             Name = "Information Governance",
                             TermId = 8
                         },
@@ -1718,6 +2915,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 9,
                             Name = "Enterprise Architecture",
                             TermId = 8
                         },
@@ -1727,6 +2925,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 10,
                             Name = "Capstone Project (IS)",
                             TermId = 8
                         },
@@ -1736,6 +2935,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 11,
                             Name = "Advanced Business Intelligence",
                             TermId = 8
                         },
@@ -1745,6 +2945,7 @@ namespace DataAccess.Migrations
                             CreditHours = 3,
                             DepartmentID = 3,
                             Description = "",
+                            DoctorID = 12,
                             Name = "IT Governance & Compliance",
                             TermId = 8
                         });
@@ -1950,6 +3151,25 @@ namespace DataAccess.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("Entities.Models.Cart", b =>
+                {
+                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.OptionalCourse", "OptionalCourse")
+                        .WithMany()
+                        .HasForeignKey("OptionalCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("OptionalCourse");
+                });
+
             modelBuilder.Entity("Entities.Models.Comment", b =>
                 {
                     b.HasOne("Entities.Models.Assistant", null)
@@ -1995,6 +3215,10 @@ namespace DataAccess.Migrations
                         .WithMany("CommunityPosts")
                         .HasForeignKey("StudentId");
 
+                    b.HasOne("Entities.Models.UniversityCourse", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("UniversityCourseId");
+
                     b.Navigation("Author");
 
                     b.Navigation("UniversityCourse");
@@ -2009,7 +3233,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Models.OptionalCourse", "Course")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2038,12 +3262,6 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.UniversityCourse", "Course")
-                        .WithMany("DoctorAssistants")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.Models.Doctor", "Doctor")
                         .WithMany("DoctorAssistants")
                         .HasForeignKey("DoctorId")
@@ -2051,8 +3269,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Assistant");
-
-                    b.Navigation("Course");
 
                     b.Navigation("Doctor");
                 });
@@ -2140,6 +3356,53 @@ namespace DataAccess.Migrations
                     b.Navigation("Instructor");
 
                     b.Navigation("PromoCodeEntity");
+                });
+
+            modelBuilder.Entity("Entities.Models.Order", b =>
+                {
+                    b.HasOne("Entities.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.OptionalCourse", "OptionalCourse")
+                        .WithMany()
+                        .HasForeignKey("OptionalCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.PromoCode", "PromoCode")
+                        .WithMany("Orders")
+                        .HasForeignKey("PromoCodeId");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("OptionalCourse");
+
+                    b.Navigation("PromoCode");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostFile", b =>
+                {
+                    b.HasOne("Entities.Models.CommunityPost", "Post")
+                        .WithMany("Files")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Entities.Models.PostLink", b =>
+                {
+                    b.HasOne("Entities.Models.CommunityPost", "Post")
+                        .WithMany("Links")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Entities.Models.Student", b =>
@@ -2339,6 +3602,10 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Models.CommunityPost", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Files");
+
+                    b.Navigation("Links");
                 });
 
             modelBuilder.Entity("Entities.Models.Department", b =>
@@ -2362,9 +3629,16 @@ namespace DataAccess.Migrations
                     b.Navigation("OptionalCourses");
                 });
 
+            modelBuilder.Entity("Entities.Models.OptionalCourse", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
             modelBuilder.Entity("Entities.Models.PromoCode", b =>
                 {
                     b.Navigation("OptionalCourses");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("Students");
                 });
@@ -2398,11 +3672,11 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("AssistantCourses");
 
-                    b.Navigation("DoctorAssistants");
-
                     b.Navigation("Enrollments");
 
                     b.Navigation("Materials");
+
+                    b.Navigation("Posts");
 
                     b.Navigation("Tasks");
                 });

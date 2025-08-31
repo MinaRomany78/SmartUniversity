@@ -7,7 +7,7 @@
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedingData : Migration
+    public partial class AddSeedingData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,11 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "FullName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "inst-user-100", 0, null, "04711e2a-7c96-4c78-b109-f44e9e77a2f3", "ahmed@test.com", true, "Ahmed", "Ahmed Kamal", "Kamal", false, null, "AHMED@TEST.COM", "AHMED@TEST.COM", "FAKE_HASH", null, false, "669bf75c-0771-4b83-a89f-34adb659fdf3", false, "ahmed@test.com" },
-                    { "inst-user-101", 0, null, "6587b456-5f46-4a57-b206-4daf3cf11f83", "mona@test.com", true, "Mona", "Mona Ali", "Ali", false, null, "MONA@TEST.COM", "MONA@TEST.COM", "FAKE_HASH", null, false, "bba4931e-511a-4a2b-9cda-6a294f4241d1", false, "mona@test.com" },
-                    { "inst-user-102", 0, null, "519a6a9a-d5e7-4c22-aeb0-0057213bdad3", "hossam@test.com", true, "Hossam", "Hossam Yehia", "Yehia", false, null, "HOSSAM@TEST.COM", "HOSSAM@TEST.COM", "FAKE_HASH", null, false, "f8d8f81d-88b5-4123-91a8-6ca0e4ea33d5", false, "hossam@test.com" },
-                    { "inst-user-103", 0, null, "c68c7d5d-cff7-4c2c-a1e2-cb01bab24390", "sara@test.com", true, "Sara", "Sara Ibrahim", "Ibrahim", false, null, "SARA@TEST.COM", "SARA@TEST.COM", "FAKE_HASH", null, false, "9ebee9c7-87d5-4005-8a06-82271984e45a", false, "sara@test.com" },
-                    { "inst-user-104", 0, null, "49737d22-f10f-47d2-a8cf-9942ba1f4d4b", "khaled@test.com", true, "Khaled", "Khaled Mostafa", "Mostafa", false, null, "KHALED@TEST.COM", "KHALED@TEST.COM", "FAKE_HASH", null, false, "4b1be4b5-7ba7-4b12-9f24-c4c71dd64628", false, "khaled@test.com" }
+                    { "inst-user-100", 0, null, "0f1970c0-2be8-41a8-b2f3-ffe05c4a20b1", "ahmed@test.com", true, "Ahmed", "Ahmed Kamal", "Kamal", false, null, "AHMED@TEST.COM", "AHMED@TEST.COM", "FAKE_HASH", null, false, "d51abbc8-a862-4534-b89b-298511d8271d", false, "ahmed@test.com" },
+                    { "inst-user-101", 0, null, "29dc64be-87ae-45dc-9a10-cf89fea92dbd", "mona@test.com", true, "Mona", "Mona Ali", "Ali", false, null, "MONA@TEST.COM", "MONA@TEST.COM", "FAKE_HASH", null, false, "46fb1ae8-c688-491c-bf84-98077ced6f39", false, "mona@test.com" },
+                    { "inst-user-102", 0, null, "69d27210-13a6-4205-b811-19872d14de0a", "hossam@test.com", true, "Hossam", "Hossam Yehia", "Yehia", false, null, "HOSSAM@TEST.COM", "HOSSAM@TEST.COM", "FAKE_HASH", null, false, "d8eda9b2-6125-4238-adc4-c8fc988e8e10", false, "hossam@test.com" },
+                    { "inst-user-103", 0, null, "3ca6f5e3-318f-4497-911a-b5842d2bfe4c", "sara@test.com", true, "Sara", "Sara Ibrahim", "Ibrahim", false, null, "SARA@TEST.COM", "SARA@TEST.COM", "FAKE_HASH", null, false, "d6eba840-411c-43b3-9531-1c1f98c68519", false, "sara@test.com" },
+                    { "inst-user-104", 0, null, "49361402-ecef-458d-b3a7-ed13b1495bdf", "khaled@test.com", true, "Khaled", "Khaled Mostafa", "Mostafa", false, null, "KHALED@TEST.COM", "KHALED@TEST.COM", "FAKE_HASH", null, false, "1cd7e3a2-8e57-4ec2-8b77-df89cdca8cd4", false, "khaled@test.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -370,19 +370,19 @@ namespace DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "OptionalCourses",
-                columns: new[] { "Id", "Description", "InstructorId", "IsAvailableForUniversityStudents", "MainImg", "Name", "Price", "PromoCode" },
+                columns: new[] { "Id", "Description", "InstructorId", "IsAvailableForUniversityStudents", "MainImg", "Name", "Price", "PromoCode", "Traffic" },
                 values: new object[,]
                 {
-                    { 300, "Intro to C# and .NET", 101, true, "csharp.png", "C# Basics", 800m, "PROMO10" },
-                    { 301, "Learn EF Core ORM", 101, true, "efcore.png", "Entity Framework Core", 1200m, "PROMO10" },
-                    { 302, "Frontend development with React", 102, false, "react.png", "React Fundamentals", 1500m, "PROMO10" },
-                    { 303, "Learn Angular fast", 102, true, "angular.png", "Angular Crash Course", 1400m, "PROMO10" },
-                    { 304, "Pandas, NumPy, and basics of ML", 103, false, "python.png", "Python for Data Science", 1600m, "PROMO10" },
-                    { 305, "Intro to ML concepts", 103, true, "ml.png", "Machine Learning 101", 2000m, "PROMO10" },
-                    { 306, "Wireframes & Prototyping", 104, true, "uiux.png", "UI/UX Advanced", 1300m, "PROMO10" },
-                    { 307, "Cross-platform apps", 104, true, "flutter.png", "Mobile Development with Flutter", 1800m, "PROMO10" },
-                    { 308, "Security principles and practices", 100, false, "cyber.png", "Cybersecurity Basics", 2200m, "PROMO10" },
-                    { 309, "Azure fundamentals", 100, true, "azure.png", "Cloud with Azure", 2100m, "PROMO10" }
+                    { 300, "Intro to C# and .NET", 101, true, "csharp.png", "C# Basics", 800m, "PROMO10", 0 },
+                    { 301, "Learn EF Core ORM", 101, true, "efcore.png", "Entity Framework Core", 1200m, "PROMO10", 0 },
+                    { 302, "Frontend development with React", 102, false, "react.png", "React Fundamentals", 1500m, "PROMO10", 0 },
+                    { 303, "Learn Angular fast", 102, true, "angular.png", "Angular Crash Course", 1400m, "PROMO10", 0 },
+                    { 304, "Pandas, NumPy, and basics of ML", 103, false, "python.png", "Python for Data Science", 1600m, "PROMO10", 0 },
+                    { 305, "Intro to ML concepts", 103, true, "ml.png", "Machine Learning 101", 2000m, "PROMO10", 0 },
+                    { 306, "Wireframes & Prototyping", 104, true, "uiux.png", "UI/UX Advanced", 1300m, "PROMO10", 0 },
+                    { 307, "Cross-platform apps", 104, true, "flutter.png", "Mobile Development with Flutter", 1800m, "PROMO10", 0 },
+                    { 308, "Security principles and practices", 100, false, "cyber.png", "Cybersecurity Basics", 2200m, "PROMO10", 0 },
+                    { 309, "Azure fundamentals", 100, true, "azure.png", "Cloud with Azure", 2100m, "PROMO10", 0 }
                 });
         }
 
