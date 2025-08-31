@@ -66,7 +66,7 @@ namespace DataAccess.Repositories
             IInstructorRepository instructors,
 
             IPostLinkRepository postLinks,
-            IPostFileRepository postFiles,
+            IPostFileRepository postFiles
 
             ICourseReviewRepository courseReviews,
             ICartRepository carts,
